@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <ImageView fitHeight="710.0" fitWidth="1189.0" layoutX="-128.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@roadrunnerpics/titlescreen/blackBackground.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="606.0" fitWidth="775.0" layoutX="104.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@roadrunnerpics/titlescreen/titleBackgroundGif1.gif.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="54.0" fitWidth="452.0" layoutX="307.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@roadrunnerpics/titlescreen/titleGif2.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="115.0" fitWidth="364.0" layoutX="278.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@roadrunnerpics/titlescreen/titleGif1.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="429.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@roadrunnerpics/titlescreen/utsaLOGO.gif" />
+               </image>
+            </ImageView>
+            <Button layoutX="338.0" layoutY="246.0" mnemonicParsing="false" text="GAME 1" />
+            <Button layoutX="338.0" layoutY="294.0" mnemonicParsing="false" text="GAME 2" />
+            <Button layoutX="320.0" layoutY="405.0" mnemonicParsing="false" text="EXTRA MODE" />
+            <Label layoutX="442.0" layoutY="251.0" text="One *whatever we decide*" />
+            <Label layoutX="442.0" layoutY="299.0" text="Two *whatever we decide*" />
+            <Label layoutX="443.0" layoutY="410.0" text="Cool extra mode we decide to make" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@roadrunnerpics/titlescreen/utsaLOGO.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</GridPane>
