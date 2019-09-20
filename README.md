@@ -6,11 +6,11 @@ but re-theme it with our schools mascot; Rowdy the Roadrunner. Our goal is to cl
 
 
 Group Members: 
-Ariel Guerrero - leader 
-Efrael Gonzalez
-Kyle Evers
-Isaiah Hernandez
-Joshua McFall
+Ariel Guerrero - leader, 
+Efrael Gonzalez,
+Kyle Evers,
+Isaiah Hernandez,
+Joshua McFall,
 Phillip 
 
 
