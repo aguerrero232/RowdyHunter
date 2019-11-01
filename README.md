@@ -14,5 +14,5 @@ Phillip Carroll
 Quevin Cams
 
 
-![](RowdyHunter/src/sample/roadrunnerpics/titlescreen/utsaLOGO.gif)
+![](RowdyHunter/src/application/roadrunnerpics/titlescreen/utsaLOGO.gif)
 
