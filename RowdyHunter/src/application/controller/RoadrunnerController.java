@@ -19,13 +19,13 @@ public class RoadrunnerController {
 
     private BufferedImage currentImage;
 
-    private GamePanel panel;
+//    private GamePanel panel;
 
     private Roadrunner roadrunner;
 
-    private Sound dogCall;
-    private Sound capturedDuck;
-    private Sound dogLaugh;
+//    private Sound dogCall;
+//    private Sound capturedDuck;
+//    private Sound dogLaugh;
 
     private boolean isJumpFinihed;
     private boolean isAnimationFinished;
@@ -33,7 +33,7 @@ public class RoadrunnerController {
     private int x;
     private int y;
 
-    private DogController() {
+    private RoadrunnerController() {
         currentImage = Resources.getImage("/images/dogRight0.png");
         dogCall = Resources.getSound("/sounds/dog.wav");
         capturedDuck = Resources.getSound("/sounds/capturedDuck.wav");
@@ -47,15 +47,11 @@ public class RoadrunnerController {
         y = 0;
     }
 
-    public static DogController getIstance() {
+    public static RoadrunnerController getIstance() {
         if (dogControllerIstance == null) {
             return dogControllerIstance = new DogController();
         }
         return dogControllerIstance;
-    }
-
-    public void setPanel(GamePanel pPanel) {
-        this.panel = pPanel;
     }
 
     public DogIntroAnimation getIntroAnimation() {
@@ -66,92 +62,92 @@ public class RoadrunnerController {
         return dogAnimation;
     }
 
-    public void setRoadrunner(Dog pDog) {
-        this.roadrunner = pDog;
+    public void setRoadrunner(Roadrunner pRoadrunner) {
+        this.roadrunner = pRoadrunner;
     }
 
-    public Dog getRoadrunner() {
+    public Roadrunner getRoadrunner() {
         return roadrunner;
     }
-
-    private void moveRigth() {
-        spriteSheet.setFrames(3, "dogRight");
-        spriteSheet.setDelay(DELAY);
-        spriteSheet.update();
-        currentImage = spriteSheet.getCurrentFrame();
-        x = roadrunner.getX();
-        x += roadrunner.getSpeed();
-        roadrunner.setX(x);
-    }
-
-    private void sniff() {
-        spriteSheet.setFrames(2, "dogSniff");
-        spriteSheet.setDelay(DELAY);
-        spriteSheet.update();
-        currentImage = spriteSheet.getCurrentFrame();
-    }
-
-    private void moveUp() {
-        currentImage = Resources.getImage("/images/dogHappy.png");
-        y = roadrunner.getY();
-        y -= roadrunner.getSpeed();
-        roadrunner.setY(y);
-    }
-
-    private void laughAndGoUp() {
-        spriteSheet.setFrames(2, "dogLaugh");
-        spriteSheet.update();
-        currentImage = spriteSheet.getCurrentFrame();
-        y = roadrunner.getY();
-        y -= roadrunner.getSpeed();
-        roadrunner.setY(y);
-    }
-
-    private void laugh() {
-        spriteSheet.setFrames(2, "dogLaugh");
-        spriteSheet.update();
-        currentImage = spriteSheet.getCurrentFrame();
-    }
-
-    private void laughAndGoDown() {
-        spriteSheet.setFrames(2, "dogLaugh");
-        spriteSheet.update();
-        currentImage = spriteSheet.getCurrentFrame();
-        y = roadrunner.getY();
-        y += roadrunner.getSpeed();
-        roadrunner.setY(y);
-    }
-
-    private void moveDown() {
-        currentImage = Resources.getImage("/images/dogHappy.png");
-        y = roadrunner.getY();
-        y += roadrunner.getSpeed();
-        roadrunner.setY(y);
-    }
-
-    private void dogInAlert() {
-        currentImage = Resources.getImage("/images/dogAttention.png");
-    }
-
-    private void jump() {
-        currentImage = Resources.getImage("/images/dogJump.png");
-        x = roadrunner.getX();
-        y = roadrunner.getY();
-        x += roadrunner.getSpeed();
-        y -= roadrunner.getSpeed();
-        roadrunner.setX(x);
-        roadrunner.setY(y);
-    }
-
-    private void land() {
-        currentImage = Resources.getImage("/images/dogLanding.png");
-        x = roadrunner.getX();
-        y = roadrunner.getY();
-        x += roadrunner.getSpeed();
-        y += roadrunner.getSpeed();
-        roadrunner.setX(x);
-        roadrunner.setY(y);
-    }
+//
+//    private void moveRigth() {
+//        spriteSheet.setFrames(3, "dogRight");
+//        spriteSheet.setDelay(DELAY);
+//        spriteSheet.update();
+//        currentImage = spriteSheet.getCurrentFrame();
+//        x = roadrunner.getX();
+//        x += roadrunner.getSpeed();
+//        roadrunner.setX(x);
+//    }
+//
+//    private void sniff() {
+//        spriteSheet.setFrames(2, "dogSniff");
+//        spriteSheet.setDelay(DELAY);
+//        spriteSheet.update();
+//        currentImage = spriteSheet.getCurrentFrame();
+//    }
+//
+//    private void moveUp() {
+//        currentImage = Resources.getImage("/images/dogHappy.png");
+//        y = roadrunner.getY();
+//        y -= roadrunner.getSpeed();
+//        roadrunner.setY(y);
+//    }
+//
+//    private void laughAndGoUp() {
+//        spriteSheet.setFrames(2, "dogLaugh");
+//        spriteSheet.update();
+//        currentImage = spriteSheet.getCurrentFrame();
+//        y = roadrunner.getY();
+//        y -= roadrunner.getSpeed();
+//        roadrunner.setY(y);
+//    }
+//
+//    private void laugh() {
+//        spriteSheet.setFrames(2, "dogLaugh");
+//        spriteSheet.update();
+//        currentImage = spriteSheet.getCurrentFrame();
+//    }
+//
+//    private void laughAndGoDown() {
+//        spriteSheet.setFrames(2, "dogLaugh");
+//        spriteSheet.update();
+//        currentImage = spriteSheet.getCurrentFrame();
+//        y = roadrunner.getY();
+//        y += roadrunner.getSpeed();
+//        roadrunner.setY(y);
+//    }
+//
+//    private void moveDown() {
+//        currentImage = resources.getImage("/images/dogHappy.png");
+//        y = roadrunner.getY();
+//        y += roadrunner.getSpeed();
+//        roadrunner.setY(y);
+//    }
+//
+//    private void dogInAlert() {
+//        currentImage = Resources.getImage("/images/dogAttention.png");
+//    }
+//
+//    private void jump() {
+//        currentImage = Resources.getImage("/images/dogJump.png");
+//        x = roadrunner.getX();
+//        y = roadrunner.getY();
+//        x += roadrunner.getSpeed();
+//        y -= roadrunner.getSpeed();
+//        roadrunner.setX(x);
+//        roadrunner.setY(y);
+//    }
+//
+//    private void land() {
+//        currentImage = Resources.getImage("/images/dogLanding.png");
+//        x = roadrunner.getX();
+//        y = roadrunner.getY();
+//        x += roadrunner.getSpeed();
+//        y += roadrunner.getSpeed();
+//        roadrunner.setX(x);
+//        roadrunner.setY(y);
+//    }
 
     public BufferedImage getCurrentImage() {
         return currentImage;
