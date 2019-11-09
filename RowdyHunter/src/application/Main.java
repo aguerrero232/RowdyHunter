@@ -8,17 +8,24 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static Stage tmpstage;
+    Parent root;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
-        primaryStage.setTitle("ROWDY HUNTER");
-        primaryStage.setScene(new Scene(root, 900, 600));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+    public void start(Stage primaryStage) throws Exception {
+        try {
+            tmpstage = primaryStage;
+            root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+            tmpstage.setTitle("ROWDY HUNTER");
+            tmpstage.setScene(new Scene(root, 900, 600));
+            tmpstage.show();
+            tmpstage.setResizable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
 }
