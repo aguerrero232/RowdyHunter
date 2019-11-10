@@ -41,36 +41,16 @@ public class GameController implements Initializable {
         ArrayList<Double> locations = new ArrayList<Double>();
         locations.add(mouseEvent.getSceneX());
         locations.add(mouseEvent.getSceneY());
-        System.out.println(locations.get(0) + ", " + locations.get(1));
-        // -----------------------------  And im printing it out -------------------------------------------------
+        // -----------------------------  And im checking if the pane is clicked on -------------------------------------------------
         Bounds boundsInScene = gamestackpane1.localToScene(gamestackpane1.getBoundsInLocal());
         if (boundsInScene.contains(locations.get(0), locations.get(1))) {
+            System.out.println(locations.get(0) + ", " + locations.get(1));
             System.out.println("it works im cool");
         }
-
-
-
-
+        // -----------------------------  And im printing it out the location if true -------------------------------------------------
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-        // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
-        try {
-            gamebackground.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/nightback.png")));
-            bushesimage.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/meadow.png")));
-
-            //            maintitleimage2.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/titlescreentitle2-1.png")));
-            //            playbuttonimage.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/homescreenplay.gif")));
-            //            mainbackgroundimage.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/mainbackground.gif")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
-
-
+    private void startUFO() {
         // ------------------------------- moving ufo stuff -----------------------------------------------
         try {
             gamestackpane1 = new StackPane(new ImageView(new Image(new FileInputStream("RowdyHunter/resources/images/ufo-1.gif"))));
@@ -94,6 +74,25 @@ public class GameController implements Initializable {
         // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
         gamepane.getChildren().add(gamestackpane1);
         // ------------------------------- moving ufo stuff -----------------------------------------------
+
+    }
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
+        try {
+            gamebackground.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/nightback.png")));
+            bushesimage.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/meadow.png")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
+
+        startUFO();
 
 
 

@@ -52,12 +52,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-// ------------------------------- moving ufo stuff -----------------------------------------------
+        // ------------------------------- moving ufo stuff -----------------------------------------------
         try {
             stackpane1 = new StackPane(new ImageView(new Image(new FileInputStream("RowdyHunter/resources/images/ufo-1.gif"))));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         // DIFFERENT TYPES OF TRANSITIONS
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(2));
