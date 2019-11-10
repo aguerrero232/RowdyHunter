@@ -76,7 +76,7 @@ public class GameController implements Initializable {
             // could add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
 
 
-            ufoExplosion(gamestackpane1.getLayoutX(), gamestackpane1.getLayoutY());
+            ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
             gamepane.getChildren().remove(gamestackpane1);
 
 
@@ -116,7 +116,7 @@ public class GameController implements Initializable {
                 int gameOverMusic = random.nextInt(3) + 1;
                 Media media;
 
-                if (score > 10) {
+                if (score > 12) {
                     switch (gameOverMusic - 1) {
                         case 1:
                             media = new Media(new File("RowdyHunter/resources/sounds/winner.wav").toURI().toString());
