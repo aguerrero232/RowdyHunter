@@ -38,59 +38,58 @@ public class GameController implements Initializable {
     private Duration tmpDuration = Duration.millis(1000);
 
     public void gunshot(MouseEvent mouseEvent) throws IOException {
-
         // -----------------------------  getting the location of the current press of the mouse! ----------------
         ArrayList<Double> locations = new ArrayList<Double>();
         locations.add(mouseEvent.getSceneX());
         locations.add(mouseEvent.getSceneY());
-        // -----------------------------  And im checking if the pane (the UFO) is clicked on -------------------------------------------------
+
+        // ----------------------------- checking if the pane (the UFO) is clicked on -------------------------------------------------
+        // -----------------------------  And printing out the location (x,y) if true just so you can see the logic -------------------------------------------------
         Bounds boundsInScene = gamestackpane1.localToScene(gamestackpane1.getBoundsInLocal());
         if (boundsInScene.contains(locations.get(0), locations.get(1))) {
             System.out.println("HIT AT :" + locations.get(0) + ", " + locations.get(1));
-            // cpuld add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
+            // could add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
 
             ufoExplosion(gamestackpane1.getLayoutX(), gamestackpane1.getLayoutY());
+            gamepane.getChildren().remove(gamestackpane1);
 
             score += 1;
             System.out.println("CURRENT SCORE:" + score);
 
-            gamepane.getChildren().remove(gamestackpane1);
-
-            if (score == 5) {
+            if (score == 3) {
                 tmpDuration = Duration.millis(850);
             }
-            if (score == 8) {
-                tmpDuration = Duration.millis(800);
+            if (score == 5) {
+                tmpDuration = Duration.millis(750);
             }
-            if (score == 13) {
+            if (score == 8) {
                 tmpDuration = Duration.millis(600);
             }
+            if (score == 13) {
+                tmpDuration = Duration.millis(450);
+            }
             if (score == 15) {
-                tmpDuration = Duration.millis(200);
+                tmpDuration = Duration.millis(300);
             }
             if (score == 18) {
-                tmpDuration = Duration.millis(99);
+                tmpDuration = Duration.millis(150);
             }
 
-            startUFO(900, 60D, tmpDuration);
-
+            startUFO(tmpDuration);
         }
-
-        // -----------------------------  And im printing out the location (x,y) if true just so you can see the logic -------------------------------------------------
-
 
         // ------------------------------------- logic conditions -------------------------------------------------
 
+
         // -------------------- keeping track of the bullets and the number of reloads ----------------------------
         bulletCount--;
-        System.out.println("BULLETS:" + bulletCount);
+        //        System.out.println("BULLETS:" + bulletCount);
         // update bullets display like in project 4
         if (bulletCount == 0) {
             reloads += 1;
             // update bullets on display
-            System.out.println("Reload #:" + reloads);
-            System.out.println("Reloading....");
-
+            //            System.out.println("Reload #:" + reloads);
+            //            System.out.println("Reloading....");
             if (reloads > 8) {
                 System.out.println("Game over condition.... whatever you want it to be .... i chose after 5 reloads its game over");
                 changeScene();
@@ -108,6 +107,7 @@ public class GameController implements Initializable {
      * @throws IOException
      */
     private void changeScene() throws IOException {
+
         Parent root = FXMLLoader.load(getClass().getResource("../view/Main.fxml"));
         Main.tmpstage.setScene(new Scene(root, 900, 600));
         Main.tmpstage.show();
@@ -116,62 +116,55 @@ public class GameController implements Initializable {
 
 
     private void ufoExplosion(double x, double y) throws FileNotFoundException {
+
         Image image1 = new Image(new FileInputStream("RowdyHunter/resources/images/explosion.gif"));
         ImageView imageView = new ImageView();
         imageView.setX(x);
         imageView.setY(y);
-
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(imageView.imageProperty(), image1)),
                 new KeyFrame(Duration.millis(500), new KeyValue(imageView.imageProperty(), null))
         );
-
         timeline.play();
-
         gamepane.getChildren().add(imageView);
     }
 
 
-
-    private void startUFO(double x, double y, Duration d) {
+    private void startUFO(Duration d) {
 
         Random rand = new Random();
-        int paneX = rand.nextInt(750) + 1, paney = rand.nextInt(550) + 1;
-
-        System.out.println("PANE X: " + paneX + " PANE Y: " + paney);
-
+        int paneX = rand.nextInt(400) + 1, paneY = rand.nextInt(300) + 1;
+        System.out.println("PANE X: " + paneX + " PANE Y: " + paneY);
         // ------------------------------- moving ufo stuff -----------------------------------------------
         try {
             gamestackpane1 = new StackPane(new ImageView(new Image(new FileInputStream("RowdyHunter/resources/images/ufo-1.gif"))));
             gamestackpane1.setLayoutX(paneX);
-            gamestackpane1.setLayoutX(paney);
-
+            gamestackpane1.setLayoutX(paneY);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         // DIFFERENT TYPES OF TRANSITIONS
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(d);
-        transition.setToX(x - paneX);
-        transition.setToY(y - paney);
+        transition.setToX(600 + paneX);
+        transition.setToY(400 + paneY);
         transition.setAutoReverse(true);
         transition.setCycleCount(Animation.INDEFINITE);
+        transition.byXProperty().toString();
         transition.setNode(gamestackpane1);   // <--- SETTING THE OBJECT TO TRANSITION
         transition.play();
         ScaleTransition sctransition = new ScaleTransition(Duration.seconds(5), gamestackpane1);
-        sctransition.setToX(.3);
-        sctransition.setToY(.4);
+        sctransition.setToX(.2);
+        sctransition.setToY(.3);
         sctransition.setCycleCount(Animation.INDEFINITE);
         sctransition.play();
         // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
         gamepane.getChildren().add(gamestackpane1);
         // ------------------------------- moving ufo stuff -----------------------------------------------
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
         try {
             gamebackground.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/nightback.png")));
@@ -180,8 +173,6 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
-
-        startUFO(900, 600, Duration.seconds(2));
-
+        startUFO(Duration.seconds(2));
     }
 }
