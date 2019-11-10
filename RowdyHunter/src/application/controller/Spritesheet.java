@@ -3,10 +3,6 @@
 //import java.awt.image.BufferedImage;
 ////import application
 //
-///**
-// *
-// * @author Vittorio Polverino
-// */
 //public class Spritesheet {
 //
 //    private BufferedImage[] frames;
