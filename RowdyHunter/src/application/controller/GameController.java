@@ -1,9 +1,7 @@
 package application.controller;
 
 import application.Main;
-import javafx.animation.Animation;
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,8 +48,10 @@ public class GameController implements Initializable {
         if (boundsInScene.contains(locations.get(0), locations.get(1))) {
             System.out.println("HIT AT :" + locations.get(0) + ", " + locations.get(1));
             // cpuld add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
-            score += 1;
 
+            ufoExplosion(gamestackpane1.getLayoutX(), gamestackpane1.getLayoutY());
+
+            score += 1;
             System.out.println("CURRENT SCORE:" + score);
 
             gamepane.getChildren().remove(gamestackpane1);
@@ -113,6 +113,24 @@ public class GameController implements Initializable {
         Main.tmpstage.show();
         Main.tmpstage.setResizable(false);
     }
+
+
+    private void ufoExplosion(double x, double y) throws FileNotFoundException {
+        Image image1 = new Image(new FileInputStream("RowdyHunter/resources/images/explosion.gif"));
+        ImageView imageView = new ImageView();
+        imageView.setX(x);
+        imageView.setY(y);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(imageView.imageProperty(), image1)),
+                new KeyFrame(Duration.millis(500), new KeyValue(imageView.imageProperty(), null))
+        );
+
+        timeline.play();
+
+        gamepane.getChildren().add(imageView);
+    }
+
 
 
     private void startUFO(double x, double y, Duration d) {
