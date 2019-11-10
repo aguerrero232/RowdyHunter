@@ -46,6 +46,8 @@ public class GameController implements Initializable {
         if (boundsInScene.contains(locations.get(0), locations.get(1))) {
             System.out.println(locations.get(0) + ", " + locations.get(1));
             System.out.println("it works im cool");
+
+
         }
         // -----------------------------  And im printing it out the location if true -------------------------------------------------
     }
@@ -67,8 +69,8 @@ public class GameController implements Initializable {
         transition.setNode(gamestackpane1);   // <--- SETTING THE OBJECT TO TRANSITION
         transition.play();
         ScaleTransition sctransition = new ScaleTransition(Duration.seconds(5), gamestackpane1);
-        sctransition.setToX(2);
-        sctransition.setToY(1);
+        sctransition.setToX(.3);
+        sctransition.setToY(.4);
         sctransition.setCycleCount(Animation.INDEFINITE);
         sctransition.play();
         // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
@@ -93,8 +95,6 @@ public class GameController implements Initializable {
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
 
         startUFO();
-
-
 
     }
 }
