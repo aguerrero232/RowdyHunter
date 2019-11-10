@@ -5,16 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="gamepane" onMouseClicked="#gunshot" prefHeight="600.0"
             prefWidth="900.0" xmlns="http://javafx.com/javafx/8" fx:controller="application.controller.GameController">
     <children>
         <ImageView fx:id="gamebackground" fitHeight="600.0" fitWidth="900.0" layoutX="-2.0" pickOnBounds="true"
                    preserveRatio="true"/>
-        <StackPane fx:id="gamestackpane1" layoutX="85.0" layoutY="71.0" prefHeight="150.0" prefWidth="200.0">
+        <StackPane fx:id="gamestackpane1" layoutX="85.0" layoutY="71.0" prefHeight="60.0" prefWidth="60.0">
             <children>
-                <ImageView fx:id="ufoimage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
-                           preserveRatio="true"/>
+                <ImageView fx:id="ufoimage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true"/>
             </children>
         </StackPane>
         <ImageView fx:id="bushesimage" fitHeight="600.0" fitWidth="2000.0" layoutX="-26.0" layoutY="-1.0"
