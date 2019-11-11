@@ -39,17 +39,16 @@ public class GameController implements Initializable {
     private StackPane gamestackpane1;
 
     private int bulletCount = 3, hitcount = 0, reloads = 0, score = 0;
-    HashMap<Integer, ArrayList<Integer>> spawnLocations = new HashMap<Integer, ArrayList<Integer>>();
+    private HashMap<Integer, ArrayList<Integer>> spawnLocations = new HashMap<Integer, ArrayList<Integer>>();
     private Duration tmpDuration = Duration.millis(900);
 
     public void gunshot(MouseEvent mouseEvent) throws IOException {
-
 
         // ----------------------------- gunshot noise -------------------------------------------------
         Random ran = new Random();
         int gunNoiseOption = ran.nextInt(100) + 1;
 
-//        System.out.println(gunNoiseOption);
+        //        System.out.println(gunNoiseOption);
         if (gunNoiseOption % 2 == 0) {
             Media m = new Media(new File("RowdyHunter/resources/sounds/laser2.wav").toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(m);
@@ -61,7 +60,7 @@ public class GameController implements Initializable {
         }
 
 
-        // ---------------------------------------------------------------------';l------------------------
+        // ----------------------------------------------------------------------------------------------------------------------------
 
         // -----------------------------  getting the location of the current press of the mouse! ----------------
         ArrayList<Double> locations = new ArrayList<Double>();
@@ -75,28 +74,30 @@ public class GameController implements Initializable {
             //            System.out.println("HIT AT :" + locations.get(0) + ", " + locations.get(1));
             // could add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
 
-
+            // last ufo blew up so place an explosion wherever you clicked the ufo ( x-150,y-150 because the image size when placing the explosion needs an offset)
             ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
             gamepane.getChildren().remove(gamestackpane1);
-
 
             score += 1;
             //            System.out.println("CURRENT SCORE:" + score);
 
+
+            // -------- gradually increasing difficulty here bu speeding up the image
             if (score == 3) {
-                tmpDuration = Duration.millis(700);
-            }
-            if (score == 5) {
-                tmpDuration = Duration.millis(600);
-            }
-            if (score == 8) {
                 tmpDuration = Duration.millis(300);
             }
-            if (score == 13) {
+            if (score == 5) {
                 tmpDuration = Duration.millis(150);
             }
-
+            if (score == 8) {
+                tmpDuration = Duration.millis(100);
+            }
+            if (score == 13) {
+                tmpDuration = Duration.millis(50);
+            }
+            // ---------- updating and placing the new image here ----------------------------------------
             startUFO(tmpDuration);
+            // ------------------------------------------------------------------
         }
 
         // ------------------------------------- logic conditions -------------------------------------------------
