@@ -58,7 +58,7 @@ public class GameController implements Initializable {
         Random ran = new Random();
         int gunNoiseOption = ran.nextInt(100) + 1;
 
-        //        System.out.println(gunNoiseOption);
+        //System.out.println(gunNoiseOption);
         if (gunNoiseOption % 2 == 0) {
             Media m = new Media(new File("RowdyHunter/resources/sounds/laser2.wav").toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(m);
@@ -112,13 +112,13 @@ public class GameController implements Initializable {
 
         // -------------------- keeping track of the bullets and the number of reloads ----------------------------
         bulletCount--;
-        //        System.out.println("BULLETS:" + bulletCount);
+        System.out.println("BULLETS:" + bulletCount);
         // update bullets display like in project 4
         if (bulletCount == 0) {
             reloads += 1;
             // update bullets on display
-            //            System.out.println("Reload #:" + reloads);
-            //            System.out.println("Reloading....");
+            System.out.println("Reload #:" + reloads);
+            System.out.println("Reloading....");
             if (reloads > 8) {
                 Random random = new Random();
                 int gameOverMusic = random.nextInt(3) + 1;
@@ -248,12 +248,11 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // need to get this here to work .. its the games music
-        //        Media media = new Media(new File("RowdyHunter/resources/sounds/gamemusic.mp3").toURI().toString());
-        //        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        //        mediaPlayer.setAutoPlay(true);
-        //        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
+        // fixed -josh
+        Media media = new Media(new File("RowdyHunter/resources/sounds/gamemusic.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setAutoPlay(true);
         setSpawnLocations();
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
         try {
