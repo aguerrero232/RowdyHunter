@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -27,13 +28,22 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+
+/**
+ * @TODO Create user interface to view score, username, amount of current bullets, and number of magazines left
+ * implement model
+ * create high score data base
+ * create 3rd scene for displaying results
+ */
+
+
 public class GameController implements Initializable {
 
     @FXML
     private AnchorPane gamepane;
 
     @FXML
-    private ImageView gamebackground, bushesimage, groundimage, treeimage, ufoimage;
+    private ImageView gamebackground, bushesimage; //, groundimage, treeimage, ufoimage;
 
     @FXML
     private StackPane gamestackpane1;
@@ -77,11 +87,8 @@ public class GameController implements Initializable {
             // last ufo blew up so place an explosion wherever you clicked the ufo ( x-150,y-150 because the image size when placing the explosion needs an offset)
             ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
             gamepane.getChildren().remove(gamestackpane1);
-
             score += 1;
             //            System.out.println("CURRENT SCORE:" + score);
-
-
             // -------- gradually increasing difficulty here bu speeding up the image
             if (score == 3) {
                 tmpDuration = Duration.millis(300);
@@ -189,23 +196,23 @@ public class GameController implements Initializable {
     }
 
     private void setSpawnLocations() {
-        spawnLocations.put(0, getAList(200, 150));
-        spawnLocations.put(1, getAList(300, 20));
-        spawnLocations.put(2, getAList(350, 140));
-        spawnLocations.put(3, getAList(470, 100));
-        spawnLocations.put(4, getAList(100, 130));
-        spawnLocations.put(5, getAList(200, 170));
+        spawnLocations.put(0, getAList(100, 150));
+        spawnLocations.put(1, getAList(200, 20));
+        spawnLocations.put(2, getAList(150, 140));
+        spawnLocations.put(3, getAList(270, 100));
+        spawnLocations.put(4, getAList(70, 130));
+        spawnLocations.put(5, getAList(100, 170));
         spawnLocations.put(6, getAList(50, 120));
-        spawnLocations.put(7, getAList(350, 220));
-        spawnLocations.put(8, getAList(432, 133));
-        spawnLocations.put(9, getAList(211, 150));
-        spawnLocations.put(10, getAList(400, 200));
+        spawnLocations.put(7, getAList(250, 220));
+        spawnLocations.put(8, getAList(132, 133));
+        spawnLocations.put(9, getAList(111, 150));
+        spawnLocations.put(10, getAList(200, 200));
 
     }
 
     private void startUFO(Duration d) {
         Random rand = new Random();
-        int paneX = rand.nextInt(400) + 1, paneY = rand.nextInt(300) + 1, spawnLocation = rand.nextInt(spawnLocations.size()), setToXLocation = rand.nextInt(300) + 201, setToYLocation = rand.nextInt(100) + 51;
+        int paneX = rand.nextInt(100) + 201, paneY = rand.nextInt(75) + 126, spawnLocation = rand.nextInt(spawnLocations.size()), setToXLocation = rand.nextInt(300) + 201, setToYLocation = rand.nextInt(100) + 51;
 
         //                System.out.println("X: " + spawnLocations.get(spawnLocation).get(0) + ", Y: " + spawnLocations.get(spawnLocation).get(1));
         //                System.out.println("X: " + paneX + ", Y: " + paneY);
@@ -257,5 +264,14 @@ public class GameController implements Initializable {
         }
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
         startUFO(Duration.seconds(1));
+
+        Image image = null;
+        try {
+            image = new Image(new FileInputStream("RowdyHunter/resources/images/crosshair-1.jpg"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        gamepane.setCursor(Cursor.CROSSHAIR);
     }
 }
