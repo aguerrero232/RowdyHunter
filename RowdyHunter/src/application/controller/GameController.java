@@ -2,6 +2,7 @@ package application.controller;
 
 import application.Main;
 import application.model.HighScores;
+import application.model.SpaceShip;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -43,11 +43,9 @@ public class GameController implements Initializable {
     private ImageView gamebackground, bushesimage, round1, round2, round3;
 
     @FXML
-    private StackPane gamestackpane1;
-    @FXML
     private Label scoreLabel, usernameLabel, magzLabel;
 
-
+    private SpaceShip tmpShip;
     private ArrayList<ImageView> bullets = new ArrayList<ImageView>();
     private Image bullet;
     private double scoremultiplier = 0.0;
@@ -139,12 +137,12 @@ public class GameController implements Initializable {
 
             // ----------------------------- checking if the pane (the UFO) is clicked on -------------------------------------------------
             // -----------------------------  And printing out the location (x,y) if true just so you can see the logic -------------------
-            Bounds boundsInScene = gamestackpane1.localToScene(gamestackpane1.getBoundsInLocal());
+            Bounds boundsInScene = tmpShip.localToScene(tmpShip.getBoundsInLocal());
             if (boundsInScene.contains(locations.get(0), locations.get(1))) {
             //            System.out.println("HIT AT :" + locations.get(0) + ", " + locations.get(1));
             // could add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
             // last ufo blew up so place an explosion wherever you clicked the ufo ( x-150,y-150 because the image size when placing the explosion needs an offset)
-                gamepane.getChildren().remove(gamestackpane1);
+                gamepane.getChildren().remove(tmpShip);
                 ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
                 rawscore += 1;
                 scoreLabel.setText("" + rawscore);
@@ -251,14 +249,20 @@ public class GameController implements Initializable {
         spawnLocations.put(10, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
     }
 
+    public SpaceShip getRandomShip() throws FileNotFoundException {
+        Random rand = new Random();
+        String url = "RowdyHunter/resources/images/ufo-", extension = ".gif";
+        return new SpaceShip(url + (rand.nextInt(3) + 1) + extension);
+    }
+
+
     public void startUFO(Duration d) {
         Random rand = new Random();
         int setToXLocation = rand.nextInt(200) + 301, setToYLocation = rand.nextInt(100) + 76;
-
         try {
-            gamestackpane1 = new StackPane(new ImageView(new Image(new FileInputStream("RowdyHunter/resources/images/ufo-1.gif"))));
-            gamestackpane1.setLayoutX(50);
-            gamestackpane1.setLayoutY(50);
+            tmpShip = getRandomShip();
+            tmpShip.setLayoutX(50);
+            tmpShip.setLayoutY(50);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -270,9 +274,9 @@ public class GameController implements Initializable {
         transition.setToY(setToYLocation);
         transition.setAutoReverse(true);
         transition.setCycleCount(Animation.INDEFINITE);
-        transition.setNode(gamestackpane1);   // <--- SETTING THE OBJECT TO TRANSITION
+        transition.setNode(tmpShip);   // <--- SETTING THE OBJECT TO TRANSITION
         transition.play();
-        ScaleTransition sctransition = new ScaleTransition(Duration.seconds(1), gamestackpane1);
+        ScaleTransition sctransition = new ScaleTransition(Duration.seconds(1), tmpShip);
         sctransition.setAutoReverse(true);
         sctransition.setToX(.2);
         sctransition.setToY(.3);
@@ -280,7 +284,7 @@ public class GameController implements Initializable {
         sctransition.play();
         // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
 
-        gamepane.getChildren().add(gamestackpane1);
+        gamepane.getChildren().add(tmpShip);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20),
                 new EventHandler<ActionEvent>() {
@@ -291,19 +295,19 @@ public class GameController implements Initializable {
                     @Override
                     public void handle(ActionEvent t) {
                         //move the ball
-                        gamestackpane1.setLayoutX(gamestackpane1.getLayoutX() + dx);
-                        gamestackpane1.setLayoutY(gamestackpane1.getLayoutY() + dy);
+                        tmpShip.setLayoutX(tmpShip.getLayoutX() + dx);
+                        tmpShip.setLayoutY(tmpShip.getLayoutY() + dy);
 
-                        Bounds bounds = gamestackpane1.getBoundsInLocal();
+                        Bounds bounds = tmpShip.getBoundsInLocal();
                         //If the ball reaches the left or right border make the step negative
-                        if (gamestackpane1.getLayoutX() <= (bounds.getMinX() - 100) ||
-                                gamestackpane1.getLayoutX() >= (bounds.getMaxX() + 100)) {
+                        if (tmpShip.getLayoutX() <= (bounds.getMinX() - 100) ||
+                                tmpShip.getLayoutX() >= (bounds.getMaxX() + 100)) {
                             dx = -dx;
                         }
 
                         //If the ball reaches the bottom or top border make the step negative
-                        if ((gamestackpane1.getLayoutY() >= (bounds.getMaxY() + 100)) ||
-                                (gamestackpane1.getLayoutY() <= (bounds.getMinY() - 100))) {
+                        if ((tmpShip.getLayoutY() >= (bounds.getMaxY() + 100)) ||
+                                (tmpShip.getLayoutY() <= (bounds.getMinY() - 100))) {
                             dy = -dy;
                         }
                     }
@@ -321,6 +325,7 @@ public class GameController implements Initializable {
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setAutoPlay(true);
+
         setSpawnLocations();
 
         usernameLabel.setText(MainController.getUsername());
