@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -44,7 +45,7 @@ public class GameController implements Initializable {
     private AnchorPane gamepane;
 
     @FXML
-    private ImageView gamebackground, bushesimage, round1, round2, round3; //, groundimage, treeimage, ufoimage;
+    private ImageView gamebackground, bushesimage, round1, round2, round3;
 
     @FXML
     private StackPane gamestackpane1;
@@ -79,13 +80,18 @@ public class GameController implements Initializable {
     }
 
     public void gunshot(MouseEvent mouseEvent) throws IOException {
-
+        // reload (rmb)
         if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-            for (int i = 0; i < bullets.size(); i++) {
-                bullets.get(i).setImage(bullet);
+            if (bulletCount == 0) {
+                for (int i = 0; i < bullets.size(); i++) {
+                    bullets.get(i).setImage(bullet);
+                }
+                bulletCount = 3;
+                magzLabel.setText("" + (reloadLimit - reloads));
             }
-            bulletCount = 3;
-        } else {
+        }
+        // gun was shot (lmb)
+        else {
             if (bulletCount == 0) {
                 return;
             }
@@ -126,17 +132,17 @@ public class GameController implements Initializable {
                 // -------- gradually increasing difficulty here by speeding up the image while also adding a score multiplier
                 switch (rawscore) {
                     case 3:
-                        tmpDuration = Duration.millis(300);
+                        tmpDuration = Duration.millis(400);
                         break;
                     case 5:
-                        tmpDuration = Duration.millis(150);
+                        tmpDuration = Duration.millis(300);
                         break;
                     case 8:
-                        tmpDuration = Duration.millis(100);
+                        tmpDuration = Duration.millis(200);
                         scoremultiplier = .2;
                         break;
                     case 13:
-                        tmpDuration = Duration.millis(50);
+                        tmpDuration = Duration.millis(100);
                         scoremultiplier = .3;
                         break;
                     case 15:
@@ -144,19 +150,19 @@ public class GameController implements Initializable {
                         break;
                     case 18:
                         scoremultiplier = .5;
-                        tmpDuration = Duration.millis(10);
+                        tmpDuration = Duration.millis(50);
                         break;
                     case 24:
                         scoremultiplier = .9;
-                        tmpDuration = Duration.millis(9);
+                        tmpDuration = Duration.millis(10);
                         break;
                     case 29:
                         scoremultiplier = 1.5;
-                        tmpDuration = Duration.millis(5);
+                        tmpDuration = Duration.millis(9);
                         break;
                     case 32:
                         scoremultiplier = 3.5;
-                        tmpDuration = Duration.millis(1);
+                        tmpDuration = Duration.millis(5);
                         break;
                     default:
                 }
@@ -175,14 +181,13 @@ public class GameController implements Initializable {
             // update bullets display like in project 4
             if (bulletCount == 0) {
                 reloads += 1;
-                magzLabel.setText("" + (reloadLimit - reloads));
                 // update bullets on display
                 if (reloads > reloadLimit) {
                     Random random = new Random();
                     int gameOverMusic = random.nextInt(3) + 1;
                     Media media;
                     totalscore = calcScore(rawscore, scoremultiplier); // use this value to display final score
-
+                    // 12 is considered gud in this game (*-*)-b
                     if (rawscore > 12) {
                         switch (gameOverMusic - 1) {
                             case 1:
@@ -191,7 +196,7 @@ public class GameController implements Initializable {
                             default:
                                 media = new Media(new File("RowdyHunter/resources/sounds/winner2.wav").toURI().toString());
                     }
-                    } else {
+                    } else { // did bad (*_*)-p
                         switch (gameOverMusic) {
                             case 2:
                                 media = new Media(new File("RowdyHunter/resources/sounds/gameover2.wav").toURI().toString());
@@ -203,7 +208,6 @@ public class GameController implements Initializable {
                                 media = new Media(new File("RowdyHunter/resources/sounds/gameover3.wav").toURI().toString());
                         }
                     }
-
                     MediaPlayer mediaPlayer = new MediaPlayer(media);
                     mediaPlayer.setAutoPlay(true);
                     changeScene();
@@ -323,6 +327,7 @@ public class GameController implements Initializable {
                         }
                     }
                 }));
+
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
@@ -331,7 +336,6 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
         usernameLabel.setText(MainController.getUsername());
         scoreLabel.setText("0");
@@ -360,7 +364,7 @@ public class GameController implements Initializable {
         }
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
 
-
+        gamepane.setBorder(Border.EMPTY);
         gamepane.setCursor(Cursor.CROSSHAIR);
     }
 }

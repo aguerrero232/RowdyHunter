@@ -72,19 +72,24 @@ public class MainController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        stackpane1.setLayoutX(-100);
+        stackpane1.setLayoutY(80);
         // DIFFERENT TYPES OF TRANSITIONS
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(2));
-        transition.setToX(500);
-        transition.setToY(500);
+        transition.setToX(850);
+        transition.setToY(85);
+        transition.setToZ(70);
         transition.setAutoReverse(true);
         transition.setCycleCount(Animation.INDEFINITE);
         transition.setNode(stackpane1);   // <--- SETTING THE OBJECT TO TRANSITION
         transition.play();
         ScaleTransition sctransition = new ScaleTransition(Duration.seconds(5), stackpane1);
-        sctransition.setToX(.1);
-        sctransition.setToY(.1);
+        sctransition.setToX(.4);
+        sctransition.setToY(.4);
+        sctransition.setToZ(.1);
+        sctransition.setAutoReverse(true);
+        sctransition.setCycleCount(Animation.INDEFINITE);
         sctransition.play();
         // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
         mainpane.getChildren().add(stackpane1);
