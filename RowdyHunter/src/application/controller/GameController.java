@@ -2,6 +2,8 @@ package application.controller;
 
 import application.Main;
 import javafx.animation.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,13 +13,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,14 +30,13 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-
 /**
- * @TODO Create user interface to view score, username, amount of current bullets, and number of magazines left
+ * @TODO
+ * Create user interface to view score, username, amount of current bullets, and number of magazines left
  * implement model
  * create high score data base
  * create 3rd scene for displaying results
  */
-
 
 public class GameController implements Initializable {
 
@@ -43,118 +44,167 @@ public class GameController implements Initializable {
     private AnchorPane gamepane;
 
     @FXML
-    private ImageView gamebackground, bushesimage; //, groundimage, treeimage, ufoimage;
+    private ImageView gamebackground, bushesimage, round1, round2, round3; //, groundimage, treeimage, ufoimage;
+    private Image bullet;
 
+    private ArrayList<ImageView> bullets = new ArrayList<ImageView>();
     @FXML
     private StackPane gamestackpane1;
 
-    private int bulletCount = 3, hitcount = 0, reloads = 0, score = 0;
+    private double scoremultiplier = 0.0;
+    private int bulletCount = 3, reloads = 0, rawscore = 0, totalscore = 0;
     private HashMap<Integer, ArrayList<Integer>> spawnLocations = new HashMap<Integer, ArrayList<Integer>>();
     private Duration tmpDuration = Duration.millis(900);
 
+    private void addBulletsToList() {
+        bullets.add(round1);
+        bullets.add(round2);
+        bullets.add(round3);
+    }
+
+    private int calcScore(int score, double multiplier) {
+        return (int) (score * (1 + multiplier));
+    }
+
+    private void shot() {
+        bullets.get(bulletCount - 1).setImage(null);
+    }
+
+    private void setBulletImage() throws FileNotFoundException {
+        bullet = new Image(new FileInputStream("RowdyHunter/resources/images/bullet.png"));
+    }
+
     public void gunshot(MouseEvent mouseEvent) throws IOException {
 
-        // ----------------------------- gunshot noise -------------------------------------------------
-        Random ran = new Random();
-        int gunNoiseOption = ran.nextInt(100) + 1;
-
-        //System.out.println(gunNoiseOption);
-        if (gunNoiseOption % 2 == 0) {
+        if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+            for (int i = 0; i < bullets.size(); i++) {
+                bullets.get(i).setImage(bullet);
+            }
+            bulletCount = 3;
+        } else {
+            if (bulletCount == 0) {
+                return;
+            }
+            shot();
+            // ----------------------------- gunshot noise -------------------------------------------------
+            Random ran = new Random();
+            int gunNoiseOption = ran.nextInt(100) + 1;
+            //        System.out.println(gunNoiseOption);
+            if (gunNoiseOption % 2 == 0) {
             Media m = new Media(new File("RowdyHunter/resources/sounds/laser2.wav").toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(m);
             mediaPlayer.setAutoPlay(true);
-        } else {
+            } else {
             Media n = new Media(new File("RowdyHunter/resources/sounds/laser.wav").toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(n);
             mediaPlayer.setAutoPlay(true);
-        }
+            }
 
+            // ----------------------------------------------------------------------------------------------------------------------------
+            // -----------------------------  getting the location of the current press of the mouse! ----------------
+            ArrayList<Double> locations = new ArrayList<Double>();
+            locations.add(mouseEvent.getSceneX());
+            locations.add(mouseEvent.getSceneY());
 
-        // ----------------------------------------------------------------------------------------------------------------------------
-
-        // -----------------------------  getting the location of the current press of the mouse! ----------------
-        ArrayList<Double> locations = new ArrayList<Double>();
-        locations.add(mouseEvent.getSceneX());
-        locations.add(mouseEvent.getSceneY());
-
-        // ----------------------------- checking if the pane (the UFO) is clicked on -------------------------------------------------
-        // -----------------------------  And printing out the location (x,y) if true just so you can see the logic -------------------
-        Bounds boundsInScene = gamestackpane1.localToScene(gamestackpane1.getBoundsInLocal());
-        if (boundsInScene.contains(locations.get(0), locations.get(1))) {
+            // ----------------------------- checking if the pane (the UFO) is clicked on -------------------------------------------------
+            // -----------------------------  And printing out the location (x,y) if true just so you can see the logic -------------------
+            Bounds boundsInScene = gamestackpane1.localToScene(gamestackpane1.getBoundsInLocal());
+            if (boundsInScene.contains(locations.get(0), locations.get(1))) {
             //            System.out.println("HIT AT :" + locations.get(0) + ", " + locations.get(1));
             // could add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
-
             // last ufo blew up so place an explosion wherever you clicked the ufo ( x-150,y-150 because the image size when placing the explosion needs an offset)
             ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
             gamepane.getChildren().remove(gamestackpane1);
-            score += 1;
+                rawscore += 1;
             //            System.out.println("CURRENT SCORE:" + score);
-            // -------- gradually increasing difficulty here bu speeding up the image
-            if (score == 3) {
-                tmpDuration = Duration.millis(300);
-            }
-            if (score == 5) {
-                tmpDuration = Duration.millis(150);
-            }
-            if (score == 8) {
-                tmpDuration = Duration.millis(100);
-            }
-            if (score == 13) {
-                tmpDuration = Duration.millis(50);
-            }
-            // ---------- updating and placing the new image here ----------------------------------------
-            startUFO(tmpDuration);
-            // ------------------------------------------------------------------
-        }
-
-        // ------------------------------------- logic conditions -------------------------------------------------
-
-
-        // -------------------- keeping track of the bullets and the number of reloads ----------------------------
-        bulletCount--;
-        System.out.println("BULLETS:" + bulletCount);
-        // update bullets display like in project 4
-        if (bulletCount == 0) {
-            reloads += 1;
-            // update bullets on display
-            System.out.println("Reload #:" + reloads);
-            System.out.println("Reloading....");
-            if (reloads > 8) {
-                Random random = new Random();
-                int gameOverMusic = random.nextInt(3) + 1;
-                Media media;
-
-                if (score > 12) {
-                    switch (gameOverMusic - 1) {
-                        case 1:
-                            media = new Media(new File("RowdyHunter/resources/sounds/winner.wav").toURI().toString());
-                            break;
-                        default:
-                            media = new Media(new File("RowdyHunter/resources/sounds/winner2.wav").toURI().toString());
-                    }
-                } else {
-                    switch (gameOverMusic) {
-                        case 2:
-                            media = new Media(new File("RowdyHunter/resources/sounds/gameover2.wav").toURI().toString());
-                            break;
-                        case 1:
-                            media = new Media(new File("RowdyHunter/resources/sounds/gameover.wav").toURI().toString());
-                            break;
-                        default:
-                            media = new Media(new File("RowdyHunter/resources/sounds/gameover3.wav").toURI().toString());
-                    }
+                // -------- gradually increasing difficulty here by speeding up the image while also adding a score multiplier
+                switch (rawscore) {
+                    case 3:
+                        tmpDuration = Duration.millis(300);
+                        break;
+                    case 5:
+                        tmpDuration = Duration.millis(150);
+                        break;
+                    case 8:
+                        tmpDuration = Duration.millis(100);
+                        scoremultiplier = .2;
+                        break;
+                    case 13:
+                        tmpDuration = Duration.millis(50);
+                        scoremultiplier = .3;
+                        break;
+                    case 15:
+                        scoremultiplier = .4;
+                        break;
+                    case 18:
+                        scoremultiplier = .5;
+                        tmpDuration = Duration.millis(10);
+                        break;
+                    case 24:
+                        scoremultiplier = .9;
+                        tmpDuration = Duration.millis(9);
+                        break;
+                    case 29:
+                        scoremultiplier = 1.5;
+                        tmpDuration = Duration.millis(5);
+                        break;
+                    case 32:
+                        scoremultiplier = 3.5;
+                        tmpDuration = Duration.millis(1);
+                        break;
+                    default:
                 }
 
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setAutoPlay(true);
+            // ---------- updating and placing the new image here ----------------------------------------
+                //            startUFO(tmpDuration);
+            startUFO(tmpDuration);
+            // ------------------------------------------------------------------
+            }
 
-                System.out.println("Game over condition.... whatever you want it to be .... i chose after 5 reloads its game over");
-                changeScene();
-            } else {
-                bulletCount = 3;
+            // ------------------------------------- logic conditions -------------------------------------------------
+
+            // -------------------- keeping track of the bullets and the number of reloads ----------------------------
+            bulletCount--;
+            //        System.out.println("BULLETS:" + bulletCount);
+            // update bullets display like in project 4
+            if (bulletCount == 0) {
+                reloads += 1;
+                // update bullets on display
+                //            System.out.println("Reload #:" + reloads);
+                //            System.out.println("Reloading....");
+                if (reloads > 10) {
+                    Random random = new Random();
+                    int gameOverMusic = random.nextInt(3) + 1;
+                    Media media;
+                    totalscore = calcScore(rawscore, scoremultiplier); // use this value to display final score
+
+                    if (rawscore > 12) {
+                        switch (gameOverMusic - 1) {
+                            case 1:
+                                media = new Media(new File("RowdyHunter/resources/sounds/winner.wav").toURI().toString());
+                                break;
+                            default:
+                                media = new Media(new File("RowdyHunter/resources/sounds/winner2.wav").toURI().toString());
+                    }
+                    } else {
+                        switch (gameOverMusic) {
+                            case 2:
+                                media = new Media(new File("RowdyHunter/resources/sounds/gameover2.wav").toURI().toString());
+                                break;
+                            case 1:
+                                media = new Media(new File("RowdyHunter/resources/sounds/gameover.wav").toURI().toString());
+                                break;
+                            default:
+                                media = new Media(new File("RowdyHunter/resources/sounds/gameover3.wav").toURI().toString());
+                        }
+                    }
+
+                    MediaPlayer mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.setAutoPlay(true);
+                    changeScene();
+                }
             }
         }
-
     }
 
     /**
@@ -173,6 +223,7 @@ public class GameController implements Initializable {
 
 
     private void ufoExplosion(double x, double y) throws FileNotFoundException {
+
         // need an explosion sound here
         // and possibly if we can find it then an alien with a parachute
         Image image1 = new Image(new FileInputStream("RowdyHunter/resources/images/explosion.gif"));
@@ -196,37 +247,33 @@ public class GameController implements Initializable {
     }
 
     private void setSpawnLocations() {
-        spawnLocations.put(0, getAList(100, 150));
-        spawnLocations.put(1, getAList(200, 20));
-        spawnLocations.put(2, getAList(150, 140));
-        spawnLocations.put(3, getAList(270, 100));
-        spawnLocations.put(4, getAList(70, 130));
-        spawnLocations.put(5, getAList(100, 170));
-        spawnLocations.put(6, getAList(50, 120));
-        spawnLocations.put(7, getAList(250, 220));
-        spawnLocations.put(8, getAList(132, 133));
-        spawnLocations.put(9, getAList(111, 150));
-        spawnLocations.put(10, getAList(200, 200));
-
+        Random rand = new Random();
+        spawnLocations.put(0, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(1, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(2, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(3, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(4, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(5, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(6, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(7, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(8, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(9, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
+        spawnLocations.put(10, getAList(rand.nextInt(200) + 1, rand.nextInt(100) + 50));
     }
 
-    private void startUFO(Duration d) {
+    public void startUFO(Duration d) {
         Random rand = new Random();
-        int paneX = rand.nextInt(100) + 201, paneY = rand.nextInt(75) + 126, spawnLocation = rand.nextInt(spawnLocations.size()), setToXLocation = rand.nextInt(300) + 201, setToYLocation = rand.nextInt(100) + 51;
+        int setToXLocation = rand.nextInt(200) + 301, setToYLocation = rand.nextInt(100) + 76;
 
-        //                System.out.println("X: " + spawnLocations.get(spawnLocation).get(0) + ", Y: " + spawnLocations.get(spawnLocation).get(1));
-        //                System.out.println("X: " + paneX + ", Y: " + paneY);
-
-        // ------------------------------- moving ufo stuff -----------------------------------------------
         try {
             gamestackpane1 = new StackPane(new ImageView(new Image(new FileInputStream("RowdyHunter/resources/images/ufo-1.gif"))));
-            gamestackpane1.setLayoutX(spawnLocations.get(spawnLocation).get(0));
-            gamestackpane1.setLayoutY(spawnLocations.get(spawnLocation).get(1));
+            gamestackpane1.setLayoutX(50);
+            gamestackpane1.setLayoutY(50);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        // DIFFERENT TYPES OF TRANSITIONS
+
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(d);
         transition.setToX(setToXLocation);
@@ -242,18 +289,57 @@ public class GameController implements Initializable {
         sctransition.setCycleCount(Animation.INDEFINITE);
         sctransition.play();
         // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
+
         gamepane.getChildren().add(gamestackpane1);
-        // ------------------------------- moving ufo stuff -----------------------------------------------
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20),
+                new EventHandler<ActionEvent>() {
+
+                    double dx = 4; //Step on x or velocity
+                    double dy = 3; //Step on y
+
+                    @Override
+                    public void handle(ActionEvent t) {
+                        //move the ball
+                        gamestackpane1.setLayoutX(gamestackpane1.getLayoutX() + dx);
+                        gamestackpane1.setLayoutY(gamestackpane1.getLayoutY() + dy);
+
+                        Bounds bounds = gamestackpane1.getBoundsInLocal();
+                        //If the ball reaches the left or right border make the step negative
+                        if (gamestackpane1.getLayoutX() <= (bounds.getMinX() - 100) ||
+                                gamestackpane1.getLayoutX() >= (bounds.getMaxX() + 100)) {
+                            dx = -dx;
+                        }
+
+                        //If the ball reaches the bottom or top border make the step negative
+                        if ((gamestackpane1.getLayoutY() >= (bounds.getMaxY() + 100)) ||
+                                (gamestackpane1.getLayoutY() <= (bounds.getMinY() - 100))) {
+                            dy = -dy;
+                        }
+                    }
+                }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // fixed -josh
-        Media media = new Media(new File("RowdyHunter/resources/sounds/gamemusic.mp3").toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setAutoPlay(true);
+        try {
+            setBulletImage();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        addBulletsToList();
+
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).setImage(bullet);
+        }
+
         setSpawnLocations();
+        startUFO(Duration.millis(500));
+
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
         try {
             gamebackground.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/nightback.png")));
@@ -262,14 +348,7 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
-        startUFO(Duration.seconds(1));
 
-        Image image = null;
-        try {
-            image = new Image(new FileInputStream("RowdyHunter/resources/images/crosshair-1.jpg"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
         gamepane.setCursor(Cursor.CROSSHAIR);
     }

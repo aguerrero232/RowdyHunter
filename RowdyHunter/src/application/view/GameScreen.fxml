@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -10,7 +12,8 @@
     <children>
         <ImageView fx:id="gamebackground" fitHeight="600.0" fitWidth="900.0" layoutX="-2.0" pickOnBounds="true"
                    preserveRatio="true"/>
-        <StackPane fx:id="gamestackpane1" layoutX="85.0" layoutY="71.0" prefHeight="60.0" prefWidth="60.0">
+        <StackPane fx:id="gamestackpane1" layoutX="85.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                   minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" snapToPixel="false">
             <children>
                 <ImageView fx:id="ufoimage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true"/>
             </children>
@@ -21,5 +24,16 @@
                    pickOnBounds="true" preserveRatio="true"/>
         <ImageView fx:id="treeimage" fitHeight="380.0" fitWidth="200.0" layoutX="39.0" layoutY="54.0"
                    pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="round1" fitHeight="52.0" fitWidth="42.0" layoutX="8.0" layoutY="540.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="round2" fitHeight="52.0" fitWidth="42.0" layoutX="38.0" layoutY="540.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="round3" fitHeight="52.0" fitWidth="42.0" layoutX="68.0" layoutY="540.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <Label layoutX="8.0" layoutY="497.0" prefHeight="32.0" prefWidth="96.0" text="Rounds">
+            <font>
+                <Font name="Atari Small" size="31.0"/>
+            </font>
+        </Label>
     </children>
 </AnchorPane>

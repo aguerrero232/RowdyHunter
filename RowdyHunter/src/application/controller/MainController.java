@@ -46,8 +46,6 @@ public class MainController implements Initializable {
             Main.tmpstage.show();
             Main.tmpstage.setResizable(false);
         }
-
-
     }
 
     @Override
@@ -69,14 +67,12 @@ public class MainController implements Initializable {
         transition.setNode(stackpane1);   // <--- SETTING THE OBJECT TO TRANSITION
         transition.play();
         ScaleTransition sctransition = new ScaleTransition(Duration.seconds(5), stackpane1);
-        sctransition.setToX(2);
-        sctransition.setToY(1);
-        sctransition.setCycleCount(Animation.INDEFINITE);
+        sctransition.setToX(.1);
+        sctransition.setToY(.1);
         sctransition.play();
         // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
         mainpane.getChildren().add(stackpane1);
         // ------------------------------- moving ufo stuff -----------------------------------------------
-
 
         // ------------------------------- MAIN SCREEN IMAGES BEING SET -----------------------------------------------
         try {
@@ -89,8 +85,5 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
         // ------------------------------- MAIN SCREEN IMAGES BEING SET -----------------------------------------------
-
-
     }
-
 }
