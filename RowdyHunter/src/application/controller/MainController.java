@@ -57,11 +57,6 @@ public class MainController implements Initializable {
             Main.tmpstage.setResizable(false);
         }
 
-        if (username.isEmpty()) {
-            usernameTF.setText("Must Set Username!");
-        }
-
-
     }
 
     @Override
@@ -72,6 +67,7 @@ public class MainController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         stackpane1.setLayoutX(-100);
         stackpane1.setLayoutY(80);
         // DIFFERENT TYPES OF TRANSITIONS

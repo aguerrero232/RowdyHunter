@@ -55,7 +55,7 @@
                 <Font name="Atari Small" size="31.0"/>
             </font>
         </Label>
-        <Label fx:id="usernameLabel" layoutX="104.0" layoutY="8.0" prefHeight="44.0" prefWidth="195.0" text="UserName"
+        <Label fx:id="usernameLabel" layoutX="104.0" layoutY="8.0" prefHeight="44.0" prefWidth="789.0" text="UserName"
                textFill="#00a6d9">
             <font>
                 <Font name="Atari Small" size="28.0"/>

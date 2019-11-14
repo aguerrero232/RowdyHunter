@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="application.controller.endScreenController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="endscreenpane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/8" fx:controller="application.controller.EndScreenController">
+   <children>
+      <ListView fx:id="highscoresListView" layoutX="87.0" layoutY="83.0" prefHeight="505.0" prefWidth="418.0"/>
+      <Label layoutX="125.0" layoutY="14.0" prefHeight="65.0" prefWidth="343.0" text="HIGHSCORES"
+             textAlignment="JUSTIFY">
+         <font>
+            <Font name="Atari Small" size="65.0"/>
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

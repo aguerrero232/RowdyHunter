@@ -45,7 +45,12 @@
                      <Font name="Atari Small" size="21.0"/>
                  </font>
              </Label>
-             <TextField fx:id="usernameTF" layoutX="298.0" layoutY="352.0" prefHeight="25.0" prefWidth="284.0"/>
+             <TextField fx:id="usernameTF" layoutX="298.0" layoutY="352.0" prefHeight="25.0" prefWidth="284.0"
+                        promptText="Must set Username!">
+                 <font>
+                     <Font name="Atari Small" size="17.0"/>
+                 </font>
+             </TextField>
          </children>
       </Pane>
    </children>

@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.Main;
+import application.model.HighScores;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,20 +18,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * @TODO
@@ -60,7 +55,6 @@ public class GameController implements Initializable {
     private HashMap<Integer, ArrayList<Integer>> spawnLocations = new HashMap<Integer, ArrayList<Integer>>();
     private Duration tmpDuration = Duration.millis(900);
 
-
     private void addBulletsToList() {
         bullets.add(round1);
         bullets.add(round2);
@@ -77,6 +71,33 @@ public class GameController implements Initializable {
 
     private void setBulletImage() throws FileNotFoundException {
         bullet = new Image(new FileInputStream("RowdyHunter/resources/images/bullet.png"));
+    }
+
+    private void setDifficulty(int score) {
+        // -------- gradually increasing difficulty here by speeding up the image while also adding a score multiplier
+        switch (score) {
+            case 3:
+                scoremultiplier = .4;
+                tmpDuration = Duration.millis(600);
+                break;
+            case 8:
+                scoremultiplier = .5;
+                tmpDuration = Duration.millis(300);
+                break;
+            case 13:
+                scoremultiplier = .9;
+                tmpDuration = Duration.millis(150);
+                break;
+            case 15:
+                scoremultiplier = 1.5;
+                tmpDuration = Duration.millis(100);
+                break;
+            case 18:
+                scoremultiplier = 3.5;
+                tmpDuration = Duration.millis(75);
+                break;
+            default:
+        }
     }
 
     public void gunshot(MouseEvent mouseEvent) throws IOException {
@@ -123,53 +144,12 @@ public class GameController implements Initializable {
             //            System.out.println("HIT AT :" + locations.get(0) + ", " + locations.get(1));
             // could add an alien animation here of one falling and fading away using a fade transition , scale transition and transition transition
             // last ufo blew up so place an explosion wherever you clicked the ufo ( x-150,y-150 because the image size when placing the explosion needs an offset)
-            ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
-            gamepane.getChildren().remove(gamestackpane1);
+                gamepane.getChildren().remove(gamestackpane1);
+                ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
                 rawscore += 1;
                 scoreLabel.setText("" + rawscore);
-
-            //            System.out.println("CURRENT SCORE:" + score);
-                // -------- gradually increasing difficulty here by speeding up the image while also adding a score multiplier
-                switch (rawscore) {
-                    case 3:
-                        tmpDuration = Duration.millis(400);
-                        break;
-                    case 5:
-                        tmpDuration = Duration.millis(300);
-                        break;
-                    case 8:
-                        tmpDuration = Duration.millis(200);
-                        scoremultiplier = .2;
-                        break;
-                    case 13:
-                        tmpDuration = Duration.millis(100);
-                        scoremultiplier = .3;
-                        break;
-                    case 15:
-                        scoremultiplier = .4;
-                        break;
-                    case 18:
-                        scoremultiplier = .5;
-                        tmpDuration = Duration.millis(50);
-                        break;
-                    case 24:
-                        scoremultiplier = .9;
-                        tmpDuration = Duration.millis(10);
-                        break;
-                    case 29:
-                        scoremultiplier = 1.5;
-                        tmpDuration = Duration.millis(9);
-                        break;
-                    case 32:
-                        scoremultiplier = 3.5;
-                        tmpDuration = Duration.millis(5);
-                        break;
-                    default:
-                }
-
-            // ---------- updating and placing the new image here ----------------------------------------
-                //            startUFO(tmpDuration);
-            startUFO(tmpDuration);
+                setDifficulty(rawscore);
+                startUFO(tmpDuration);
             // ------------------------------------------------------------------
             }
 
@@ -187,6 +167,8 @@ public class GameController implements Initializable {
                     int gameOverMusic = random.nextInt(3) + 1;
                     Media media;
                     totalscore = calcScore(rawscore, scoremultiplier); // use this value to display final score
+                    HighScores tmpScore = new HighScores(totalscore, usernameLabel.getText());
+                    tmpScore.writeScoreToFile(totalscore);
                     // 12 is considered gud in this game (*-*)-b
                     if (rawscore > 12) {
                         switch (gameOverMusic - 1) {
@@ -223,8 +205,7 @@ public class GameController implements Initializable {
      * @throws IOException
      */
     private void changeScene() throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("../view/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/EndScreen.fxml"));
         Main.tmpstage.setScene(new Scene(root, 900, 600));
         Main.tmpstage.show();
         Main.tmpstage.setResizable(false);
@@ -332,8 +313,6 @@ public class GameController implements Initializable {
         timeline.play();
     }
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -363,8 +342,6 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
         // ------------------------------- GAME SCREEN IMAGES BEING SET -----------------------------------------------
-
-        gamepane.setBorder(Border.EMPTY);
         gamepane.setCursor(Cursor.CROSSHAIR);
     }
 }
