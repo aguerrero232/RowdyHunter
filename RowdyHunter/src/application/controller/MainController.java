@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -25,6 +26,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    private static String username;
+    @FXML
+    private TextField usernameTF;
+
     @FXML
     private ImageView maintitleimage1, maintitleimage2, alienimagemain, playbuttonimage, mainbackgroundimage;
 
@@ -37,15 +42,26 @@ public class MainController implements Initializable {
     @FXML
     private Button playbutton;
 
+    public static String getUsername() {
+        return username;
+    }
+
     @FXML
     private void handle(ActionEvent event) throws IOException {
         // play button is pushed
-        if (event.getSource() == playbutton) {
+        username = usernameTF.getText();
+        if (event.getSource() == playbutton && !username.isEmpty()) {
             Parent root = FXMLLoader.load(getClass().getResource("../view/GameScreen.fxml"));
             Main.tmpstage.setScene(new Scene(root, 900, 600));
             Main.tmpstage.show();
             Main.tmpstage.setResizable(false);
         }
+
+        if (username.isEmpty()) {
+            usernameTF.setText("Must Set Username!");
+        }
+
+
     }
 
     @Override

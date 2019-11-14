@@ -11,6 +11,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -39,22 +40,25 @@ import java.util.ResourceBundle;
  */
 
 public class GameController implements Initializable {
-
     @FXML
     private AnchorPane gamepane;
 
     @FXML
     private ImageView gamebackground, bushesimage, round1, round2, round3; //, groundimage, treeimage, ufoimage;
-    private Image bullet;
 
-    private ArrayList<ImageView> bullets = new ArrayList<ImageView>();
     @FXML
     private StackPane gamestackpane1;
+    @FXML
+    private Label scoreLabel, usernameLabel, magzLabel;
 
+
+    private ArrayList<ImageView> bullets = new ArrayList<ImageView>();
+    private Image bullet;
     private double scoremultiplier = 0.0;
-    private int bulletCount = 3, reloads = 0, rawscore = 0, totalscore = 0;
+    private int bulletCount = 3, reloads = 0, rawscore = 0, totalscore = 0, reloadLimit = 10;
     private HashMap<Integer, ArrayList<Integer>> spawnLocations = new HashMap<Integer, ArrayList<Integer>>();
     private Duration tmpDuration = Duration.millis(900);
+
 
     private void addBulletsToList() {
         bullets.add(round1);
@@ -116,6 +120,8 @@ public class GameController implements Initializable {
             ufoExplosion(locations.get(0) - 150, locations.get(1) - 150);
             gamepane.getChildren().remove(gamestackpane1);
                 rawscore += 1;
+                scoreLabel.setText("" + rawscore);
+
             //            System.out.println("CURRENT SCORE:" + score);
                 // -------- gradually increasing difficulty here by speeding up the image while also adding a score multiplier
                 switch (rawscore) {
@@ -169,10 +175,9 @@ public class GameController implements Initializable {
             // update bullets display like in project 4
             if (bulletCount == 0) {
                 reloads += 1;
+                magzLabel.setText("" + (reloadLimit - reloads));
                 // update bullets on display
-                //            System.out.println("Reload #:" + reloads);
-                //            System.out.println("Reloading....");
-                if (reloads > 10) {
+                if (reloads > reloadLimit) {
                     Random random = new Random();
                     int gameOverMusic = random.nextInt(3) + 1;
                     Media media;
@@ -326,6 +331,12 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        usernameLabel.setText(MainController.getUsername());
+        scoreLabel.setText("0");
+        magzLabel.setText("" + (reloadLimit - reloads));
+
         try {
             setBulletImage();
         } catch (FileNotFoundException e) {
