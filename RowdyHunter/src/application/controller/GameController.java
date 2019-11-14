@@ -100,7 +100,7 @@ public class GameController implements Initializable {
         }
     }
 
-    public void gunshot(MouseEvent mouseEvent) throws IOException {
+    public void handleMouse(MouseEvent mouseEvent) throws IOException {
         // reload (rmb)
         if (mouseEvent.getButton() == MouseButton.SECONDARY) {
             if (bulletCount == 0) {
