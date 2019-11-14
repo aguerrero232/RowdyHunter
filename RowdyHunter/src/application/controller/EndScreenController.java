@@ -27,7 +27,6 @@ public class EndScreenController implements Initializable {
     private ListView highscoresListView;
 
     private void populateListView(ArrayList<HighScores> list) {
-
         for (int i = 0; i < list.size(); i++)
             lvdata.add("USER: " + list.get(i).getUsername() + " - SCORE: " + list.get(i).getScore());
 
@@ -36,19 +35,11 @@ public class EndScreenController implements Initializable {
 
     /**
      * Name: changeScene()
-     * Description: changes the scene from zone to main
+     * Description: changes the scene from ENDSCREEN to main
      *
      * @throws IOException
      */
     private void changeScene() throws IOException {
-//        long mTime = System.currentTimeMillis();
-//        long end = mTime + 5000; // 5 seconds
-//
-//        while (mTime < end)
-//        {
-//            mTime = System.currentTimeMillis();
-//        }
-
         Parent root = FXMLLoader.load(getClass().getResource("../view/Main.fxml"));
         Main.tmpstage.setScene(new Scene(root, 900, 600));
         Main.tmpstage.show();
