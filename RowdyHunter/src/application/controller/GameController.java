@@ -312,9 +312,16 @@ public class GameController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
+    
+    // Cannot be inside initializable 
+    Media media = new Media(new File("RowdyHunter/resources/sounds/gamemusic.mp3").toURI().toString());
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setAutoPlay(true);
+        setSpawnLocations();
 
         usernameLabel.setText(MainController.getUsername());
         scoreLabel.setText("0");
