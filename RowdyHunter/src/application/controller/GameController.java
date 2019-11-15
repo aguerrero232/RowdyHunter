@@ -40,7 +40,7 @@ public class GameController implements Initializable {
     private ImageView gamebackground, bushesimage, round1, round2, round3;
 
     @FXML
-    private Label scoreLabel, usernameLabel, magzLabel;
+    private Label scoreLabel, usernameLabel, magzLabel, loadlabel;
 
     private SpaceShip tmpShip;
     private ArrayList<ImageView> bullets = new ArrayList<ImageView>();
@@ -75,12 +75,15 @@ public class GameController implements Initializable {
             reloads++;
             bulletCount = 3;
             magzLabel.setText("" + (reloadLimit - reloads));
+            loadlabel.setText("");
         }
     }
 
     private void gunshot(int x, int y) throws FileNotFoundException {
-        if (bulletCount == 0) // no bullets in the gun nothing happened
+        if (bulletCount == 0){ // no bullets in the gun nothing happened
+            loadlabel.setText("RELOAD!!!");
             return;
+        }
 
         // ----------------------------------------------------------------------------------------------------------------------------
         // ------------------------- update bullet count and display with shot(); -----------------------------------------------------
