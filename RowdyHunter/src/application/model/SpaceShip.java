@@ -1,3 +1,7 @@
+/**
+ * @Author Ariel Guerrero
+ */
+
 package application.model;
 
 import javafx.scene.image.Image;
