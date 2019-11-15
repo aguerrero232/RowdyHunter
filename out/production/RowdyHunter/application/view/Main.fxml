@@ -25,11 +25,9 @@
       <Pane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0">
          <children>
             <ImageView fx:id="mainbackgroundimage" fitHeight="606.0" fitWidth="1077.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
-             <Button fx:id="playbutton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="176.0"
-                     layoutY="395.0" mnemonicParsing="false" onAction="#handle" prefHeight="150.0" prefWidth="378.0">
+             <Button fx:id="playbutton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="176.0" layoutY="395.0" mnemonicParsing="false" onAction="#handle" prefHeight="150.0" prefWidth="378.0">
                <graphic>
-                   <ImageView fx:id="playbuttonimage" fitHeight="167.0" fitWidth="409.0" pickOnBounds="true"
-                              preserveRatio="true">
+                   <ImageView fx:id="playbuttonimage" fitHeight="167.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -37,20 +35,19 @@
                </graphic></Button>
             <ImageView fx:id="maintitleimage2" fitHeight="113.0" fitWidth="433.0" layoutX="248.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="maintitleimage1" fitHeight="150.0" fitWidth="404.0" layoutX="46.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-             <Text layoutX="614.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="click play"
-                   wrappingWidth="167.7294921875"/>
+             <Text layoutX="614.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="click play" wrappingWidth="167.7294921875" />
             <ImageView fx:id="alienimagemain" fitHeight="150.0" fitWidth="200.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true" />
              <Label layoutX="140.0" layoutY="340.0" prefHeight="50.0" prefWidth="168.0" text="Enter Username">
                  <font>
-                     <Font name="Atari Small" size="21.0"/>
+                     <Font name="Atari Small" size="21.0" />
                  </font>
              </Label>
-             <TextField fx:id="usernameTF" layoutX="298.0" layoutY="352.0" prefHeight="25.0" prefWidth="284.0"
-                        promptText="Must set Username!">
+             <TextField fx:id="usernameTF" layoutX="298.0" layoutY="352.0" prefHeight="25.0" prefWidth="284.0" promptText="Must set Username!">
                  <font>
-                     <Font name="Atari Small" size="17.0"/>
+                     <Font name="Atari Small" size="17.0" />
                  </font>
              </TextField>
+            <ImageView fx:id="textBubbleIV" fitHeight="100.0" fitWidth="131.0" layoutX="14.0" layoutY="419.0" onMouseClicked="#handleMouse" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
    </children>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="instructionspane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleMouseClicked" prefHeight="600.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="application.controller.InstructionsController">
+    <children>
+        <ImageView fx:id="arrowLIV" fitHeight="150.0" fitWidth="200.0" layoutX="8.0" layoutY="225.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="arrowRIV" fitHeight="150.0" fitWidth="200.0" layoutX="727.0" layoutY="225.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <Label layoutX="254.0" layoutY="14.0" prefHeight="91.0" prefWidth="432.0" text="INSTRUCTIONS:">
+            <font>
+                <Font name="Atari Small" size="64.0"/>
+            </font>
+        </Label>
+        <ImageView fx:id="instructionIV" fitHeight="324.0" fitWidth="466.0" layoutX="225.0" layoutY="213.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <Label fx:id="instructionsLabel" layoutX="167.0" layoutY="128.0" prefHeight="71.0" prefWidth="582.0">
+            <font>
+                <Font name="Atari Small" size="23.0"/>
+            </font>
+        </Label>
+        <Label fx:id="pageNumberLabel" layoutX="870.0" layoutY="551.0" prefHeight="37.0" prefWidth="16.0">
+            <font>
+                <Font name="Atari Small" size="22.0"/>
+            </font>
+        </Label>
+        <Label layoutX="811.0" layoutY="551.0" prefHeight="37.0" prefWidth="59.0" text="page:">
+            <font>
+                <Font name="Atari Small" size="22.0"/>
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

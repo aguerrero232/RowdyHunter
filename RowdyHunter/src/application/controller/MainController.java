@@ -12,12 +12,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -31,11 +33,12 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     private static String username;
+
     @FXML
     private TextField usernameTF;
 
     @FXML
-    private ImageView maintitleimage1, maintitleimage2, alienimagemain, playbuttonimage, mainbackgroundimage;
+    private ImageView maintitleimage1, maintitleimage2, alienimagemain, playbuttonimage, mainbackgroundimage, textBubbleIV;
 
     @FXML
     private Pane mainpane;
@@ -61,6 +64,18 @@ public class MainController implements Initializable {
             Main.tmpstage.setResizable(false);
         }
 
+    }
+
+    @FXML
+    private void handleMouse(MouseEvent mouseEvent) throws IOException {
+        int x = (int) mouseEvent.getSceneX(), y = (int) mouseEvent.getSceneY();
+        Bounds boundsInScene = textBubbleIV.localToScene(textBubbleIV.getBoundsInLocal());
+        if (boundsInScene.contains(x, y)) {
+            Parent root = FXMLLoader.load(getClass().getResource("../view/Instructions.fxml"));
+            Main.tmpstage.setScene(new Scene(root, 900, 600));
+            Main.tmpstage.show();
+            Main.tmpstage.setResizable(false);
+        }
     }
 
     @Override
@@ -97,6 +112,7 @@ public class MainController implements Initializable {
 
         // ------------------------------- MAIN SCREEN IMAGES BEING SET -----------------------------------------------
         try {
+            textBubbleIV.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/help-pixel-speech-bubble.gif")));
             alienimagemain.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/alien.gif")));
             maintitleimage1.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/titlescreentitle2.png")));
             maintitleimage2.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/titlescreentitle2-1.png")));
@@ -106,5 +122,18 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
         // ------------------------------- MAIN SCREEN IMAGES BEING SET -----------------------------------------------
+
+
+        sctransition = new ScaleTransition(Duration.seconds(2), textBubbleIV);
+        sctransition.setAutoReverse(true);
+        sctransition.setToX(1.2);
+        sctransition.setToY(1.2);
+        sctransition.setCycleCount(Animation.INDEFINITE);
+        sctransition.play();
+        // ADDING THE STACK PANE WITH THE IMAGE VIEW TO THE THE MAIN PANE
+
+//        mainpane.getChildren().add(textBubbleIV);
+
+
     }
 }
