@@ -236,6 +236,14 @@ public class GameController implements Initializable {
     private void playexplosionSound(){
         Random ran = new Random();
         int explosionOption = ran.nextInt(4) + 1;
+
+        if(explosionOption == 2 || explosionOption == 3){
+            explosionOption = 1;
+        }
+        else{
+            explosionOption = ran.nextInt(4) + 1;
+        }
+
         Media media;
         switch (explosionOption){
             case 1:
@@ -250,6 +258,7 @@ public class GameController implements Initializable {
             default:
                 media = new Media(new File("RowdyHunter/resources/sounds/ex4.wav").toURI().toString());
         }
+        
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
     }
