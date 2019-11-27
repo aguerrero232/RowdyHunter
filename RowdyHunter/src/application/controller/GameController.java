@@ -80,7 +80,7 @@ public class GameController implements Initializable {
     }
 
     private void gunshot(int x, int y) throws FileNotFoundException {
-        if (bulletCount == 0){    // no bullets in the gun nothing happened
+        if (bulletCount == 0){ // no bullets in the gun nothing happened
             loadlabel.setText("RELOAD!!!");
             return;
         }

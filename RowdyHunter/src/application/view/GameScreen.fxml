@@ -54,7 +54,7 @@
                 <Font name="Baskerville Old Face" size="99.0" />
             </font>
         </Label>
-      <Label fx:id="loadlabel" layoutX="370.0" layoutY="292.0" prefHeight="52.0" prefWidth="171.0" textFill="#fc0606">
+       <Label fx:id="loadlabel" layoutX="370.0" layoutY="292.0" prefHeight="52.0" prefWidth="171.0" textFill="#fc0606">
          <font>
             <Font size="28.0" />
          </font>

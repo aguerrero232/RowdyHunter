@@ -27,10 +27,12 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    
 
     public static void main(String[] args) {
         // i did all dis so music worx
         // by josh
+        //relative path may not work on all IDE bc netbeans trash
         Media media = new Media(new File("RowdyHunter/resources/sounds/gamemusic.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
