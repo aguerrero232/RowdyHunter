@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleMouse" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameController">
+<AnchorPane fx:id="gamepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleMouse" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameController">
     <children>
         <ImageView fx:id="gamebackground" fitHeight="600.0" fitWidth="900.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true" />
         <StackPane fx:id="gamestackpane1" layoutX="85.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" snapToPixel="false">
@@ -19,12 +24,12 @@
         <ImageView fx:id="round1" fitHeight="52.0" fitWidth="42.0" layoutX="8.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="round2" fitHeight="52.0" fitWidth="42.0" layoutX="38.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="round3" fitHeight="52.0" fitWidth="42.0" layoutX="68.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
-        <Label layoutX="8.0" layoutY="497.0" prefHeight="46.0" prefWidth="129.0" text="ROUNDS" underline="true">
+        <Label layoutX="8.0" layoutY="497.0" prefHeight="46.0" prefWidth="158.0" text="ROUNDS" underline="true">
             <font>
                 <Font name="Algerian" size="31.0" />
             </font>
         </Label>
-        <Label layoutX="730.0" layoutY="458.0" text="MAGAZINES" textAlignment="JUSTIFY" underline="true">
+        <Label layoutX="717.0" layoutY="458.0" text="MAGAZINES" textAlignment="JUSTIFY" underline="true">
             <font>
                 <Font name="Algerian" size="28.0" />
             </font>
@@ -34,7 +39,7 @@
                 <Font name="Algerian" size="28.0" />
             </font>
         </Label>
-        <Label fx:id="scoreLabel" layoutX="470.0" layoutY="544.0" prefHeight="44.0" prefWidth="42.0" text="0">
+        <Label fx:id="scoreLabel" layoutX="482.0" layoutY="546.0" prefHeight="44.0" prefWidth="42.0" text="0">
             <font>
                 <Font name="Algerian" size="33.0" />
             </font>
@@ -44,12 +49,12 @@
                 <Font name="Algerian" size="31.0" />
             </font>
         </Label>
-        <Label fx:id="usernameLabel" layoutX="96.0" layoutY="10.0" prefHeight="44.0" prefWidth="789.0" text="UserName" textFill="#00a6d9">
+        <Label fx:id="usernameLabel" layoutX="116.0" layoutY="11.0" prefHeight="44.0" prefWidth="789.0" text="UserName" textFill="#00a6d9">
             <font>
                 <Font name="Algerian" size="28.0" />
             </font>
         </Label>
-        <Label fx:id="magzLabel" layoutX="745.0" layoutY="490.0" prefHeight="101.0" prefWidth="140.0" text="10" textFill="WHITE">
+        <Label fx:id="magzLabel" layoutX="732.0" layoutY="492.0" prefHeight="101.0" prefWidth="140.0" text="10" textFill="WHITE">
             <font>
                 <Font name="Baskerville Old Face" size="99.0" />
             </font>

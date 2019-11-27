@@ -1,71 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="gamepane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleMouse" prefHeight="600.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/8" fx:controller="application.controller.GameController">
+<AnchorPane fx:id="gamepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleMouse" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameController">
     <children>
-        <ImageView fx:id="gamebackground" fitHeight="600.0" fitWidth="900.0" layoutX="-2.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <StackPane fx:id="gamestackpane1" layoutX="85.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                   minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" snapToPixel="false">
+        <ImageView fx:id="gamebackground" fitHeight="600.0" fitWidth="900.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true" />
+        <StackPane fx:id="gamestackpane1" layoutX="85.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" snapToPixel="false">
             <children>
-                <ImageView fx:id="ufoimage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true"/>
+                <ImageView fx:id="ufoimage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </StackPane>
-        <ImageView fx:id="bushesimage" fitHeight="600.0" fitWidth="2000.0" layoutX="-26.0" layoutY="-1.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="groundimage" fitHeight="142.0" fitWidth="907.0" layoutX="-2.0" layoutY="458.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="round1" fitHeight="52.0" fitWidth="42.0" layoutX="8.0" layoutY="540.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <ImageView fx:id="round2" fitHeight="52.0" fitWidth="42.0" layoutX="38.0" layoutY="540.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <ImageView fx:id="round3" fitHeight="52.0" fitWidth="42.0" layoutX="68.0" layoutY="540.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <Label layoutX="8.0" layoutY="497.0" prefHeight="32.0" prefWidth="96.0" text="ROUNDS" underline="true">
+        <ImageView fx:id="bushesimage" fitHeight="600.0" fitWidth="2000.0" layoutX="-26.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="groundimage" fitHeight="142.0" fitWidth="907.0" layoutX="-2.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="round1" fitHeight="52.0" fitWidth="42.0" layoutX="8.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="round2" fitHeight="52.0" fitWidth="42.0" layoutX="38.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="round3" fitHeight="52.0" fitWidth="42.0" layoutX="68.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
+        <Label layoutX="8.0" layoutY="497.0" prefHeight="46.0" prefWidth="158.0" text="ROUNDS" underline="true">
             <font>
-                <Font name="Atari Small" size="31.0"/>
+                <Font name="Algerian" size="31.0" />
             </font>
         </Label>
-        <Label layoutX="746.0" layoutY="458.0" text="MAGAZINES" textAlignment="JUSTIFY" underline="true">
+        <Label layoutX="717.0" layoutY="458.0" text="MAGAZINES" textAlignment="JUSTIFY" underline="true">
             <font>
-                <Font name="Atari Small" size="31.0"/>
+                <Font name="Algerian" size="28.0" />
             </font>
         </Label>
         <Label layoutX="370.0" layoutY="551.0" text="SCORE:" textAlignment="JUSTIFY" underline="true">
             <font>
-                <Font name="Atari Small" size="31.0"/>
+                <Font name="Algerian" size="28.0" />
             </font>
         </Label>
-        <Label fx:id="scoreLabel" layoutX="470.0" layoutY="545.0" prefHeight="44.0" prefWidth="36.0">
+        <Label fx:id="scoreLabel" layoutX="482.0" layoutY="546.0" prefHeight="44.0" prefWidth="42.0" text="0">
             <font>
-                <Font name="Atari Small" size="31.0"/>
+                <Font name="Algerian" size="33.0" />
             </font>
         </Label>
-        <Label layoutX="20.0" layoutY="14.0" prefHeight="31.0" prefWidth="96.0" text="User:" textFill="#fffb00"
-               underline="true">
+        <Label layoutX="20.0" layoutY="14.0" prefHeight="31.0" prefWidth="96.0" text="User:" textFill="#fffb00" underline="true">
             <font>
-                <Font name="Atari Small" size="31.0"/>
+                <Font name="Algerian" size="31.0" />
             </font>
         </Label>
-        <Label fx:id="usernameLabel" layoutX="104.0" layoutY="8.0" prefHeight="44.0" prefWidth="789.0" text="UserName"
-               textFill="#00a6d9">
+        <Label fx:id="usernameLabel" layoutX="116.0" layoutY="11.0" prefHeight="44.0" prefWidth="789.0" text="UserName" textFill="#00a6d9">
             <font>
-                <Font name="Atari Small" size="28.0"/>
+                <Font name="Algerian" size="28.0" />
             </font>
         </Label>
-        <Label fx:id="magzLabel" layoutX="745.0" layoutY="490.0" prefHeight="101.0" prefWidth="140.0" text="0"
-               textFill="WHITE">
+        <Label fx:id="magzLabel" layoutX="732.0" layoutY="492.0" prefHeight="101.0" prefWidth="140.0" text="10" textFill="WHITE">
             <font>
-                <Font name="Atari Small" size="99.0"/>
+                <Font name="Baskerville Old Face" size="99.0" />
             </font>
         </Label>
+       <Label fx:id="loadlabel" layoutX="370.0" layoutY="292.0" prefHeight="52.0" prefWidth="171.0" textFill="#fc0606">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -233,8 +233,29 @@ public class GameController implements Initializable {
         return tmp;
     }
 
+    private void playexplosionSound(){
+        Random ran = new Random();
+        int explosionOption = ran.nextInt(4) + 1;
+        Media media;
+        switch (explosionOption){
+            case 1:
+                media = new Media(new File("RowdyHunter/resources/sounds/ex1.wav").toURI().toString());
+                break;
+            case 2:
+                media = new Media(new File("RowdyHunter/resources/sounds/ex2.wav").toURI().toString());
+                break;
+            case 3:
+                media = new Media(new File("RowdyHunter/resources/sounds/ex3.wav").toURI().toString());
+                break;
+            default:
+                media = new Media(new File("RowdyHunter/resources/sounds/ex4.wav").toURI().toString());
+        }
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+    }
     private void ufoExplosion(double x, double y) throws FileNotFoundException {
         // need an explosion sound here
+        playexplosionSound();
         Image image1 = new Image(new FileInputStream("RowdyHunter/resources/images/explosion.gif"));
         ImageView imageView = new ImageView();
         imageView.setX(x);
