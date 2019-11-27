@@ -107,8 +107,6 @@ public class HighScores implements Comparable<HighScores> {
         writer.close();
     }
 
-    public int compareTo(HighScores pscore) {
-        return -(this.score - pscore.score);
-    }
+    public int compareTo(HighScores other) { return other.score - this.score; }
 
 }
