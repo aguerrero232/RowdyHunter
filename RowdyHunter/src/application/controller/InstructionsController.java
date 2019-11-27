@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class InstructionsController implements Initializable {
 
     @FXML
-    private ImageView arrowLIV, arrowRIV, instructionIV;
+    private ImageView arrowLIV, arrowRIV, instructionIV, cornerdisp;
 
     @FXML
     private Label instructionsLabel, pageNumberLabel;
@@ -43,7 +43,7 @@ public class InstructionsController implements Initializable {
      * @throws IOException
      */
     private void changeScene() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/application/view/Main.fxml"));
         Main.tmpstage.setScene(new Scene(root, 900, 600));
         Main.tmpstage.show();
         Main.tmpstage.setResizable(false);
@@ -73,6 +73,7 @@ public class InstructionsController implements Initializable {
                 if (page == 1) {
                     arrowRIV.setImage(new Image(new FileInputStream(getUrlArrow("R"))));
                     instructionIV.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/click-1.gif")));
+                
                 }
             }
         }
@@ -93,11 +94,13 @@ public class InstructionsController implements Initializable {
                 if (page == 1) {
                     arrowLIV.setImage(new Image(new FileInputStream(getUrlArrow("L"))));
                     instructionIV.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/click-1.gif")));
+                   
                 }
 
                 if (page == 2) {
                     arrowRIV.setImage(null);
                     instructionIV.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/click-2.gif")));
+                
                 }
             }
         }

@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="endscreenpane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0"
-            xmlns="http://javafx.com/javafx/8" fx:controller="application.controller.EndScreenController">
+<AnchorPane fx:id="endscreenpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EndScreenController">
    <children>
       <ListView fx:id="highscoresListView" layoutX="23.0" layoutY="79.0" prefHeight="474.0" prefWidth="854.0">
          <effect>
             <Lighting>
                <bumpInput>
-                  <Shadow/>
+                  <Shadow />
                </bumpInput>
                <light>
-                  <Light.Distant color="#a89f9d"/>
+                  <Light.Distant color="#a89f9d" />
                </light>
             </Lighting>
          </effect>
       </ListView>
-      <Label layoutX="279.0" layoutY="14.0" prefHeight="65.0" prefWidth="343.0" text="HIGHSCORES"
-             textAlignment="JUSTIFY">
+      <Label layoutX="224.0" prefHeight="94.0" prefWidth="397.0" text="HIGHSCORES" textAlignment="JUSTIFY">
          <font>
-            <Font name="Atari Small" size="65.0"/>
+            <Font name="Algerian" size="55.0" />
          </font>
       </Label>
    </children>

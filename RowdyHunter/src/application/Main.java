@@ -1,9 +1,12 @@
 package application;
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -26,6 +29,12 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        // i did all dis so music worx
+        // by josh
+        Media media = new Media(new File("RowdyHunter/resources/sounds/gamemusic.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setAutoPlay(true);
         launch(args);
     }
 }

@@ -58,7 +58,7 @@ public class MainController implements Initializable {
         // play button is pushed
         username = usernameTF.getText();
         if (event.getSource() == playbutton && !username.isEmpty()) {
-            Parent root = FXMLLoader.load(getClass().getResource("../view/GameScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/application/view/GameScreen.fxml"));
             Main.tmpstage.setScene(new Scene(root, 900, 600));
             Main.tmpstage.show();
             Main.tmpstage.setResizable(false);
@@ -71,7 +71,7 @@ public class MainController implements Initializable {
         int x = (int) mouseEvent.getSceneX(), y = (int) mouseEvent.getSceneY();
         Bounds boundsInScene = textBubbleIV.localToScene(textBubbleIV.getBoundsInLocal());
         if (boundsInScene.contains(x, y)) {
-            Parent root = FXMLLoader.load(getClass().getResource("../view/Instructions.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/application/view/Instructions.fxml"));
             Main.tmpstage.setScene(new Scene(root, 900, 600));
             Main.tmpstage.show();
             Main.tmpstage.setResizable(false);
@@ -97,7 +97,7 @@ public class MainController implements Initializable {
         transition.setToZ(70);
         transition.setAutoReverse(true);
         transition.setCycleCount(Animation.INDEFINITE);
-        transition.setNode(stackpane1);   // <--- SETTING THE OBJECT TO TRANSITION
+        transition.setNode(stackpane1);   // <--- SETTING THE NODE TO TRANSITION
         transition.play();
         ScaleTransition sctransition = new ScaleTransition(Duration.seconds(5), stackpane1);
         sctransition.setToX(.4);
@@ -117,7 +117,10 @@ public class MainController implements Initializable {
             maintitleimage1.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/titlescreentitle2.png")));
             maintitleimage2.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/titlescreentitle2-1.png")));
             playbuttonimage.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/homescreenplay.gif")));
-            mainbackgroundimage.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/mainbackground.gif")));
+            mainbackgroundimage.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/newmain.gif")));
+            mainbackgroundimage.fitWidthProperty().bind(mainpane.widthProperty());
+            mainbackgroundimage.fitHeightProperty().bind(mainpane.heightProperty());
+        
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -101,7 +101,7 @@ public class HighScores implements Comparable<HighScores> {
 
         for (int index = 0; index < scores.size(); index++)
             output += scores.get(index).toString();
-
+        //BufferedWriter writer = new BufferedWriter(new FileWriter(new File("C:/Users/lucio/Desktop/Programming FUN/RowdyHunter/RowdyHunter/resources/data/highscores.csv")));
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File("RowdyHunter/resources/data/highscores.csv")));
         writer.write(output);
         writer.close();

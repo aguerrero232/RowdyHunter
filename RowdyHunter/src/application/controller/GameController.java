@@ -40,7 +40,7 @@ public class GameController implements Initializable {
     private ImageView gamebackground, bushesimage, round1, round2, round3;
 
     @FXML
-    private Label scoreLabel, usernameLabel, magzLabel;
+    private Label scoreLabel, usernameLabel, magzLabel, loadlabel;
 
     private SpaceShip tmpShip;
     private ArrayList<ImageView> bullets = new ArrayList<ImageView>();
@@ -75,12 +75,15 @@ public class GameController implements Initializable {
             reloads++;
             bulletCount = 3;
             magzLabel.setText("" + (reloadLimit - reloads));
+            loadlabel.setText("");
         }
     }
 
     private void gunshot(int x, int y) throws FileNotFoundException {
-        if (bulletCount == 0) // no bullets in the gun nothing happened
+        if (bulletCount == 0){    // no bullets in the gun nothing happened
+            loadlabel.setText("RELOAD!!!");
             return;
+        }
 
         // ----------------------------------------------------------------------------------------------------------------------------
         // ------------------------- update bullet count and display with shot(); -----------------------------------------------------
@@ -176,6 +179,7 @@ public class GameController implements Initializable {
     }
 
     private void endGame() throws IOException {
+        //System.out.println("we're in the endgame now!");
         Random ran = new Random();
         int gameOverMusic = ran.nextInt(3) + 1;
         Media media;
@@ -216,7 +220,7 @@ public class GameController implements Initializable {
      * @throws IOException
      */
     private void changeScene() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/EndScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/application/view/EndScreen.fxml"));
         Main.tmpstage.setScene(new Scene(root, 900, 600));
         Main.tmpstage.show();
         Main.tmpstage.setResizable(false);
@@ -257,6 +261,8 @@ public class GameController implements Initializable {
 
     }
 
+    
+    // example of try catch exceptions
     public void startUFO(Duration d) {
         Random rand = new Random();
         int setToXLocation = rand.nextInt(200) + 301, setToYLocation = rand.nextInt(100) + 76;
@@ -317,8 +323,11 @@ public class GameController implements Initializable {
         timeline.play();
     }
 
+   
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+   
         //------------------    filling map of different spawn locations    ----------------------------------------
         setSpawnLocations(11);
         //--------------------------    entering starting data into the UI -----------------------------------------

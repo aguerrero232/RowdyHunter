@@ -42,7 +42,7 @@ public class EndScreenController implements Initializable {
      * @throws IOException
      */
     private void changeScene() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/application/view/Main.fxml"));
         Main.tmpstage.setScene(new Scene(root, 900, 600));
         Main.tmpstage.show();
         Main.tmpstage.setResizable(false);
