@@ -7,6 +7,7 @@ package application.controller;
 import application.Main;
 import application.model.Bullet;
 import application.model.HighScores;
+import application.model.Magazine;
 import application.model.SpaceShip;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
@@ -33,26 +34,69 @@ import java.net.URL;
 import java.util.*;
 
 public class GameController implements Initializable {
+    /**
+	 * Main pane to hold view content
+	 */
     @FXML
     private AnchorPane gamepane;
-
+    /**
+	 * Imageviews to hold visual game assets
+	 */
     @FXML
     private ImageView gamebackground, bushesimage, round1, round2, round3;
-
+    /**
+     * Labels to display information tom user
+     */
     @FXML
     private Label scoreLabel, usernameLabel, magzLabel, loadlabel;
 
+    /**
+     * Spaceship object to handle spaceship functionality
+     */
     private SpaceShip tmpShip;
+    /**
+     * Arraylist of bullet objects(images)
+     */
     private ArrayList<ImageView> bullets = new ArrayList<ImageView>();
+    /**
+     * bullet object (holds image of bullet)
+     */
     private Bullet bullet = new Bullet();
+    /**
+     * The multiplication amount of score
+     */
     private double scoremultiplier = 0.0;
-    private int bulletCount = 3, rawscore = 0, reloads = 0, totalscore = 0, reloadLimit = 10;
+    /**
+     * Magazine object(holds bullet count, reloads)
+     */
+    private Magazine mag = new Magazine(3, 0);
+    //private int bulletCount = 3, rawscore = 0, reloads = 0, totalscore = 0, reloadLimit = 10;
+    /**
+     * values for raw score amount and totalscore amount
+     */
+    private int rawscore = 0, totalscore = 0;
+    /**
+     * HashMap to hold possible spawn location for spaceship
+     */
     private HashMap<Integer, ArrayList<Integer>> spawnLocations = new HashMap<Integer, ArrayList<Integer>>();
+    /**
+     * Holds delay time for movement of spaceship
+     */
     private Duration tmpDuration = Duration.millis(900);
-
+    
+    /**
+     * Constructor
+     * @throws FileNotFoundException
+     */
     public GameController() throws FileNotFoundException {
     }
-
+    /**
+     * Handles mouse click functionality
+     * left click: fire shot
+     * right click: reload
+     * @param mouseEvent
+     * @throws IOException
+     */
     public void handleMouse(MouseEvent mouseEvent) throws IOException {
         // reload (rmb)
         if (mouseEvent.getButton() == MouseButton.SECONDARY) {
@@ -63,24 +107,32 @@ public class GameController implements Initializable {
             gunshot((int) mouseEvent.getSceneX(), (int) mouseEvent.getSceneY());
         }
     }
-
+    /**
+     * Reload magazine
+     * @throws IOException
+     */
     private void reload() throws IOException {
-        if (bulletCount == 0) {
-            if (reloads >= reloadLimit)
+        if (mag.getBulletCount() == 0) {
+            if (mag.reloadsExceeded())
                 endGame();
 
             for (int i = 0; i < bullets.size(); i++)
                 bullets.get(i).setImage(bullet);
 
-            reloads++;
-            bulletCount = 3;
-            magzLabel.setText("" + (reloadLimit - reloads));
+            mag.addReload();//reloads++;
+            mag.reload();//bulletCount = 3;
+            magzLabel.setText("" + (mag.getReloadLimit() - mag.getReloads()));//(reloadLimit - reloads));
             loadlabel.setText("");
         }
     }
-
+    /**
+     * handles gunshot and determines if spaceship is hit
+     * @param x
+     * @param y
+     * @throws FileNotFoundException
+     */
     private void gunshot(int x, int y) throws FileNotFoundException {
-        if (bulletCount == 0){ // no bullets in the gun nothing happened
+        if (mag.getBulletCount() == 0){ // no bullets in the gun nothing happened
             loadlabel.setText("RELOAD!!!");
             return;
         }
@@ -115,11 +167,16 @@ public class GameController implements Initializable {
             teleportShip();
         }
     }
-
+    /**
+     * Depletes one shot and changes bullet image
+     */
     private void shot() {
-        bullets.get(--bulletCount).setImage(null);
+        mag.fire();
+        bullets.get(mag.getBulletCount()).setImage(null);
     }
-
+    /**
+     * Randomly select from a choice of sounds for gunshot sound
+     */
     private void playGunshotNoise() {
         Random ran = new Random();
         int gunNoiseOption = ran.nextInt(100) + 1;
@@ -133,24 +190,36 @@ public class GameController implements Initializable {
             mediaPlayer.setAutoPlay(true);
         }
     }
-
+    /**
+     * Randomly move ship to a new location on screen
+     */
     private void teleportShip() {
         Random ran = new Random();
         tmpShip.setLayoutX(ran.nextInt(425) + 1);
         tmpShip.setLayoutY(ran.nextInt(225) + 1);
     }
-
+    /**
+     * Populate bullets array
+     */
     private void addBulletsToList() {
         bullets.add(round1);
         bullets.add(round2);
         bullets.add(round3);
     }
-
+    /**
+     * Calculate player score based on score amount and mulitplier
+     * @param score
+     * @param multiplier
+     * @return
+     */
     private int calcScore(int score, double multiplier) {
         return (int) (score * (1 + multiplier));
     }
 
-
+    /**
+     * Adjust difficulty as the player performs better
+     * @param score
+     */
     private void setDifficulty(int score) {
         // -------- gradually increasing difficulty here by speeding up the image while also adding a score multiplier
         switch (score) {
@@ -177,7 +246,10 @@ public class GameController implements Initializable {
             default:
         }
     }
-
+    /**
+     * Collects final score data and selects end music based on player performance
+     * @throws IOException
+     */
     private void endGame() throws IOException {
         //System.out.println("we're in the endgame now!");
         Random ran = new Random();
@@ -225,14 +297,21 @@ public class GameController implements Initializable {
         Main.tmpstage.show();
         Main.tmpstage.setResizable(false);
     }
-
+    /**
+     * Adds passed parameter values to an arraylist and returns it
+     * @param a
+     * @param b
+     * @return
+     */
     private ArrayList<Integer> getAList(int a, int b) {
         ArrayList<Integer> tmp = new ArrayList<Integer>();
         tmp.add(a);
         tmp.add(b);
         return tmp;
     }
-
+    /**
+     * Selects from a choice of sounds randomly for the explosion
+     */
     private void playexplosionSound(){
         Random ran = new Random();
         int explosionOption = ran.nextInt(4) + 1;
@@ -262,6 +341,13 @@ public class GameController implements Initializable {
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
     }
+    /**
+     * Takes in the position of the spaceship and displays an explosion image for a limited time in its place and
+     * plays explosion sound effect
+     * @param x
+     * @param y
+     * @throws FileNotFoundException
+     */
     private void ufoExplosion(double x, double y) throws FileNotFoundException {
         // need an explosion sound here
         playexplosionSound();
@@ -277,13 +363,21 @@ public class GameController implements Initializable {
         gamepane.getChildren().add(imageView);
     }
 
-
+    /**
+     * Randomly selects a new image to represent the spaceship on screen
+     * @return
+     * 			new spaceship object
+     * @throws FileNotFoundException
+     */
     public SpaceShip getRandomShip() throws FileNotFoundException {
         Random rand = new Random();
         String url = "RowdyHunter/resources/images/ufo-", extension = ".gif";
         return new SpaceShip(url + (rand.nextInt(3) + 1) + extension);
     }
-
+    /**
+     * Randomly sets a number spawn coordinates for spaceships based on passed amount
+     * @param amountofSpawnLocations
+     */
     private void setSpawnLocations(int amountofSpawnLocations) { // ufo
         Random rand = new Random();
         for (int i = 0; i < amountofSpawnLocations; i++)
@@ -291,7 +385,10 @@ public class GameController implements Initializable {
 
     }
 
-    
+    /**
+     * Initiates and handles movement of spaceship
+     * @param d
+     */
     // example of try catch exceptions
     public void startUFO(Duration d) {
         Random rand = new Random();
@@ -354,7 +451,9 @@ public class GameController implements Initializable {
     }
 
    
-    
+    /**
+     * Set up game for first pass
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
    
@@ -363,7 +462,7 @@ public class GameController implements Initializable {
         //--------------------------    entering starting data into the UI -----------------------------------------
         usernameLabel.setText(MainController.getUsername());
         scoreLabel.setText("0");
-        magzLabel.setText("" + (reloadLimit - reloads));
+        magzLabel.setText("" + (mag.getReloadLimit() - mag.getReloads()));
         //----------------------------------------------------------------------------------------------------------
 
         //--------------------------------  Updating bullets images to start with 3   ------------------------------
