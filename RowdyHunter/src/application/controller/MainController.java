@@ -1,4 +1,6 @@
 /**
+ * MainController.java
+ * 
  * @Author Ariel Guerrero
  */
 
@@ -31,28 +33,47 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-
+    /**
+	 * The player's name
+	 */
     private static String username;
-
+    /**
+     * Text field for name entry
+     */
     @FXML
     private TextField usernameTF;
-
+    /**
+     * ImageViews for holding title screen graphics
+     */
     @FXML
     private ImageView maintitleimage1, maintitleimage2, alienimagemain, playbuttonimage, mainbackgroundimage, textBubbleIV;
-
+    /**
+     * Core pane for attaching assets
+     */
     @FXML
     private Pane mainpane;
-
+    /**
+     * Secondary asset container
+     */
     @FXML
     private StackPane stackpane1;
-
+    /**
+     * Button for user to begin game
+     */
     @FXML
     private Button playbutton;
-
+    /**
+     * Allows for access of the player's user name
+     * @return
+     */
     public static String getUsername() {
         return username;
     }
-
+    /**
+     * Action handler for play button
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void handle(ActionEvent event) throws IOException {
         // play button is pushed
@@ -65,7 +86,11 @@ public class MainController implements Initializable {
         }
 
     }
-
+    /**
+     * Launch instructions screen when text bubble clicked
+     * @param mouseEvent
+     * @throws IOException
+     */
     @FXML
     private void handleMouse(MouseEvent mouseEvent) throws IOException {
         int x = (int) mouseEvent.getSceneX(), y = (int) mouseEvent.getSceneY();
@@ -77,7 +102,9 @@ public class MainController implements Initializable {
             Main.tmpstage.setResizable(false);
         }
     }
-
+    /**
+     * Set menu screen with images and animations
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // ------------------------------- moving ufo stuff -----------------------------------------------
