@@ -1,4 +1,6 @@
 /**
+ * EndScreenController.java
+ * 
  * @Author Ariel Guerrero
  */
 
@@ -23,11 +25,19 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EndScreenController implements Initializable {
-
+    /**
+	 * ArrayList of strings to hold scores
+	 */
     ArrayList<String> lvdata = new ArrayList<String>();
+    /**
+     * ListView to display scores
+     */
     @FXML
     private ListView highscoresListView;
-
+    /**
+     * Set score arraylist values to ListView
+     * @param list
+     */
     private void populateListView(ArrayList<HighScores> list) {
         for (int i = 0; i < list.size(); i++)
             lvdata.add("USER: " + list.get(i).getUsername() + " - SCORE: " + list.get(i).getScore());
@@ -47,7 +57,9 @@ public class EndScreenController implements Initializable {
         Main.tmpstage.show();
         Main.tmpstage.setResizable(false);
     }
-
+    /**
+     * Set up page on first load
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         HighScores sc = null;
