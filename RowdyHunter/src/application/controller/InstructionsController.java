@@ -1,5 +1,8 @@
 package application.controller;
-
+/**
+ * InstructionsController.java
+ * 
+ */
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,18 +23,38 @@ import java.util.ResourceBundle;
 
 
 public class InstructionsController implements Initializable {
-
+    /**
+	 * ImageViews to contain arrow graphics
+	 */
     @FXML
     private ImageView arrowLIV, arrowRIV, instructionIV, cornerdisp;
-
+    /**
+     * Labels to display instruction information
+     */
     @FXML
     private Label instructionsLabel, pageNumberLabel;
-
+    /**
+     * To track page count
+     */
     private int page = 0, pages = 2;
+    /**
+     * instruction strings in array
+     */
     private String[] pageText = {"Shoot the Ufo and aim for the Highest score!", "Click the left mouse button to shoot!", "Click the right mouse button to reload!"};
+    /**
+     * To hold x,y coordinates of left arrow object
+     */
     private Bounds boundsInSceneLIV;
+    /**
+     * To hold x,y coordinates of right arrow object
+     */
     private Bounds boundsInSceneRIV;
-
+    /**
+     * Gets the file path to the left or right arrow image
+     * @param LorR
+     * 				Passed in string. Expected value: "L" or "R"
+     * @return
+     */
     public String getUrlArrow(String LorR) {
         return "RowdyHunter/resources/images/arrow" + LorR + ".png";
     }
@@ -49,7 +72,11 @@ public class InstructionsController implements Initializable {
         Main.tmpstage.setResizable(false);
     }
 
-
+    /**
+     * Handles navigation of instructions via mouse clicks
+     * @param mouseEvent
+     * @throws IOException
+     */
     @FXML
     public void handleMouseClicked(MouseEvent mouseEvent) throws IOException {
         int x = (int) mouseEvent.getSceneX(), y = (int) mouseEvent.getSceneY();
@@ -73,7 +100,6 @@ public class InstructionsController implements Initializable {
                 if (page == 1) {
                     arrowRIV.setImage(new Image(new FileInputStream(getUrlArrow("R"))));
                     instructionIV.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/click-1.gif")));
-                
                 }
             }
         }
@@ -94,19 +120,19 @@ public class InstructionsController implements Initializable {
                 if (page == 1) {
                     arrowLIV.setImage(new Image(new FileInputStream(getUrlArrow("L"))));
                     instructionIV.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/click-1.gif")));
-                   
                 }
 
                 if (page == 2) {
                     arrowRIV.setImage(null);
                     instructionIV.setImage(new Image(new FileInputStream("RowdyHunter/resources/images/click-2.gif")));
-                
                 }
             }
         }
 
     }
-
+    /**
+     * Set up page on first load
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
