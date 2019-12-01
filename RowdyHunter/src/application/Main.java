@@ -1,5 +1,9 @@
 package application;
-
+/**
+ * Main.java
+ * 
+ * Main class to launch application
+ */
 import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +16,17 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class Main extends Application {
-
+    /**
+	 * Stage object to hold stage reference
+	 */
     public static Stage tmpstage;
+    /**
+     * Root to hold fxml reference
+     */
     Parent root;
-
+    /**
+     * Load initial fxml file and present it
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
