@@ -10,8 +10,7 @@ Instructions:
 
 Group Members:   
                 Ariel Guerrero - leader; Email: arielguerrero1012@gmail.com   
-                Efrael Gonzalez  
-                Kyle Evers <- inactive member   
+                Efrael Gonzalez    
                 Isaiah Hernandez  
                 Joshua McFall  
                 Phillip Carroll  
